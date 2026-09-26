@@ -1,33 +1,37 @@
 # AGENTS.md
 
-Greenfield cash-flow analysis repo (Python + pandas/plotly/Streamlit). No app source, tests, or CI yet — only data + deps + design spec.
+Streamlit cash-flow app: `app.py` entrypoint + `cashflow/` package (`data.py`, `metrics.py`, `charts.py`). Tests in `tests/` mirror modules. Run everything from repo root — `data/cash_flow.csv` is loaded via relative path.
 
 ## Data contract — `data/cash_flow.csv`
 
-- Separator is `;`, not `,`. Always `pd.read_csv("data/cash_flow.csv", sep=";")`.
-- Dates are ISO `YYYY-MM-DD`; `valor` uses `.` decimals and is always positive — sign comes from `tipo` (`Entrada`/`Saída`).
-- `data_realizada` is empty (`NaT`) on forecast rows. Realized vs. forecast = `status` in (`Pago`,`Recebido`) vs. `Previsto`. Do not treat empty `data_realizada` as missing data.
-- Categorical columns use pt-BR strings (`Saída`, `Não`, `Previsto`); preserve accents, do not anglicize.
-- Single-month sample (2026-09, 30 rows). Don't hardcode month assumptions into loaders.
+- Separator is `;`: `pd.read_csv(path, sep=";")`. Canonical loader is `cashflow.data.load_cashflow`.
+- `valor` always positive with `.` decimals — sign comes from `tipo` (`Entrada` + / `Saída` −) via `with_signed_value` → `signed_value` column.
+- Realized vs. forecast = `status` in (`Pago`,`Recebido`) vs. `Previsto`. Empty `data_realizada` (`NaT`) on forecast rows is expected, not missing data.
+- pt-BR strings with accents (`Saída`, `Não`, `Previsto`) — preserve, never anglicize.
+- 360 rows, 2025-10-06→2026-09-30. Don't hardcode month/window assumptions.
 
-## Commands
-
-Use the repo venv (`python` 3.12, tools preinstalled) — `requirements*.txt` are pinned:
+## Commands (repo venv, python 3.12, pinned `requirements*.txt`)
 
 ```bash
 .venv/bin/pip install -r requirements.txt -r requirements_dev.txt
-.venv/bin/pytest -q            # no tests exist yet; default rootdir, no config file
-.venv/bin/ruff check .         # no ruff config — defaults apply
-.venv/bin/black --check .      # formatter of record
-.venv/bin/streamlit run app.py # pattern for new Streamlit entrypoint (none exists yet)
+.venv/bin/python -m pytest -q      # NOT `.venv/bin/pytest`: bare pytest misses `cashflow` (ModuleNotFoundError); `python -m` fixes sys.path. No config file.
+.venv/bin/ruff check .             # no ruff config — defaults; currently clean
+.venv/bin/black --check .          # formatter of record, but repo is NOT black-clean — don't mass-reformat
+.venv/bin/streamlit run app.py     # run from repo root (relative data path)
 ```
 
-## UI source of truth — `DESIGN.md`
+## Ordering gotchas
 
-- Apple-style token system (colors/typography/spacing/components) for any Streamlit/frontend work. Follow its Do's/Don'ts: single `#0066cc` accent (`#2997ff` on dark), 17px body, full-bleed light/dark tile rhythm, pill CTAs, one product-only shadow, no gradients.
-- Per its Iteration Guide: one component at a time, reference YAML keys (`{component.*}`), never inline hex (`{token.refs}`), default + Active/Pressed states only.
+- Charts (`daily_net_flow`, `cumulative_balance`) and `metrics.daily_flow` group by `signed_value` — always call `data.with_signed_value(...)` first; `app.py:396` shows the order.
+- `filter_cashflow` date window filters `data_prevista` only, never `data_realizada`. Period anchor is `max(data_prevista) - days + 1` (`app.py:401-413`).
+- CSV export must keep `sep=";"` for round-trip (`app.py:346`).
+
+## UI — `DESIGN.md` is source of truth
+
+- Single accent `#0066cc` (`#2997ff` on dark), 17px body, pill CTAs, one product-only shadow, no gradients.
+- One component at a time, reference YAML keys (`{component.*}`), never inline hex; default + Active/Pressed states only.
 
 ## Conventions
 
-- `outputs/` is gitignored — write generated reports/exports there, never commit them. `.venv/` is also gitignored; never commit it.
-- Keep new code at repo root or a single package dir; don't invent a monorepo layout — this is one small app.
+- `outputs/` is gitignored — generated reports/exports go there, never commit. Never commit `.venv/`.
+- Keep code flat: repo root or `cashflow/` only; no monorepo layout.

@@ -24,7 +24,7 @@ def apply_style():
         <style>
         :root { color-scheme: light; }
         .stApp { background-color: #f5f5f7; }
-        .block-container { max-width: 1440px; padding-top: 32px; padding-bottom: 32px; }
+        .block-container { max-width: 1440px; padding-top: 72px; padding-bottom: 32px; }
         header[data-testid='stHeader'] { background-color: #f5f5f7; }
         div[data-testid='stDecoration'] { display: none; }
         #MainMenu { visibility: hidden; }
@@ -100,6 +100,7 @@ def apply_style():
             border-radius: 18px;
             padding: 24px;
             min-width: 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
         }
         .cash-label {
             font-size: 14px; font-weight: 600; color: #1d1d1f;
@@ -124,6 +125,7 @@ def apply_style():
             max-width: 100%;
             overflow: hidden;
             box-sizing: border-box;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
         }
         div[data-testid='stPlotlyChart'] > div {
             width: 100% !important;
@@ -234,6 +236,11 @@ def apply_style():
             min-width: 110px; height: 44px;
             display: inline-flex; align-items: center; justify-content: center;
             box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .stButton > button:hover {
+            background-color: #0052a3 !important; color: #ffffff !important;
+            border-color: #0052a3 !important;
         }
         .stButton > button:active { transform: scale(0.95); }
         .stButton > button:focus { outline: 2px solid #0071e3; outline-offset: 2px; }
@@ -244,6 +251,11 @@ def apply_style():
             min-width: 110px; height: 44px;
             display: inline-flex; align-items: center; justify-content: center;
             box-sizing: border-box;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .stDownloadButton > button:hover {
+            background-color: rgba(0, 102, 204, 0.08) !important; color: #0066cc !important;
+            border-color: #0066cc !important;
         }
         .stDownloadButton > button:active { transform: scale(0.95); }
         .stDownloadButton > button:focus { outline: 2px solid #0071e3; outline-offset: 2px; }
@@ -275,31 +287,51 @@ def build_filter_options(frame):
 
 
 def render_filter_fields(periods, types, categories, centers, statuses, recurring_opts):
+    keys = current_filter_keys()
     top = st.columns(3, gap='medium')
     with top[0]:
-        period = st.selectbox('Period', ['All'] + periods, key='period_field')
+        period = st.selectbox('Período', ['Todos'] + periods, key=keys['period'])
     with top[1]:
-        type_sel = st.multiselect('Type', types, default=types, key='type_field')
+        type_sel = st.multiselect('Tipo', types, default=types, key=keys['type'])
     with top[2]:
-        category_sel = st.multiselect('Category', categories, default=categories, key='category_field')
+        category_sel = st.multiselect('Categoria', categories, default=categories, key=keys['category'])
     st.markdown('<div class=\'cash-filter-spacer\'></div>', unsafe_allow_html=True)
     bottom = st.columns(3, gap='medium')
     with bottom[0]:
-        center_sel = st.multiselect('Cost Center', centers, default=centers, key='center_field')
+        center_sel = st.multiselect('Centro de Custo', centers, default=centers, key=keys['center'])
     with bottom[1]:
-        status_sel = st.multiselect('Status', statuses, default=statuses, key='status_field')
+        status_sel = st.multiselect('Status', statuses, default=statuses, key=keys['status'])
     with bottom[2]:
-        recurring_sel = st.multiselect('Recurring', recurring_opts, default=recurring_opts, key='recurring_field')
+        recurring_sel = st.multiselect('Recorrente', recurring_opts, default=recurring_opts, key=keys['recurring'])
     return period, type_sel, category_sel, center_sel, status_sel, recurring_sel
+
+
+def current_filter_keys():
+    version = st.session_state.get('filter_version', 0)
+    return {
+        'period': f'period_field_{version}',
+        'type': f'type_field_{version}',
+        'category': f'category_field_{version}',
+        'center': f'center_field_{version}',
+        'status': f'status_field_{version}',
+        'recurring': f'recurring_field_{version}',
+    }
+
+
+def reset_filters():
+    for key in current_filter_keys().values():
+        if key in st.session_state:
+            del st.session_state[key]
+    st.session_state['filter_version'] = st.session_state.get('filter_version', 0) + 1
 
 
 def render_action_row(filtered):
     row = st.columns([1, 1, 10], gap='small')
     with row[0]:
-        reset = st.button('Reset')
+        reset = st.button('Limpar', on_click=reset_filters)
     with row[1]:
         st.download_button(
-            'Export',
+            'Exportar',
             filtered.to_csv(index=False, sep=';'),
             file_name='cash_flow_filtered.csv',
             mime='text/csv',
@@ -315,13 +347,13 @@ def render_cards(summary):
     coverage_text = f'{coverage:.2f}x'
     cols = st.columns(4, gap='medium')
     with cols[0]:
-        st.markdown(card_html('Net Balance', net_text, 'Inflows minus outflows'), unsafe_allow_html=True)
+        st.markdown(card_html('Saldo Líquido', net_text, 'Entradas menos saídas'), unsafe_allow_html=True)
     with cols[1]:
-        st.markdown(card_html('Total Inflows', inflow_text, 'All entries'), unsafe_allow_html=True)
+        st.markdown(card_html('Total de Entradas', inflow_text, 'Todas as entradas'), unsafe_allow_html=True)
     with cols[2]:
-        st.markdown(card_html('Total Outflows', outflow_text, 'All exits'), unsafe_allow_html=True)
+        st.markdown(card_html('Total de Saídas', outflow_text, 'Todas as saídas'), unsafe_allow_html=True)
     with cols[3]:
-        st.markdown(card_html('Forecast Coverage', coverage_text, 'Forecast in over forecast out'), unsafe_allow_html=True)
+        st.markdown(card_html('Cobertura Prevista', coverage_text, 'A receber sobre a pagar'), unsafe_allow_html=True)
 
 
 def render_charts(filtered):
@@ -347,7 +379,7 @@ def main():
     apply_style()
     st.markdown('<div class=\'cash-hero\'>Cash Flow</div>', unsafe_allow_html=True)
     st.markdown(
-        '<div class=\'cash-sub\'>Track liquidity, revenue, costs and forecast risk.</div>',
+        '<div class=\'cash-sub\'>Acompanhe liquidez, receitas, custos e risco de previsão.</div>',
         unsafe_allow_html=True,
     )
     frame = data.with_signed_value(data.load_cashflow('data/cash_flow.csv'))
@@ -357,7 +389,7 @@ def main():
     )
     start = None
     end = None
-    if period != 'All':
+    if period != 'Todos':
         start = pd.to_datetime(period + '-01')
         end = start + pd.offsets.MonthEnd(0)
     filtered = data.filter_cashflow(
@@ -370,14 +402,9 @@ def main():
         start=start,
         end=end,
     )
-    reset = render_action_row(filtered)
-    if reset:
-        for key in ['period_field', 'type_field', 'category_field', 'center_field', 'status_field', 'recurring_field']:
-            if key in st.session_state:
-                del st.session_state[key]
-        st.rerun()
+    render_action_row(filtered)
     if filtered.empty:
-        st.warning('No data for selected filters')
+        st.warning('Sem dados para os filtros selecionados')
         st.stop()
     st.divider()
     summary = metrics.build_summary(filtered)

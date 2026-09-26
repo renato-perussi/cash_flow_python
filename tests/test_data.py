@@ -2,8 +2,10 @@ def test_loader_uses_semicolon_and_preserves_accents():
     from cashflow import data as data_module
 
     frame = data_module.load_cashflow('data/cash_flow.csv')
-    assert len(frame) == 30
+    assert len(frame) == 360
     assert 'Saída' in set(frame['tipo'].unique())
+    assert str(frame['data_prevista'].min())[:10] == '2025-10-06'
+    assert str(frame['data_prevista'].max())[:10] == '2026-09-30'
 
 
 def test_signed_value_uses_tipo_for_sign():

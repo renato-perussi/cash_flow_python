@@ -3,6 +3,8 @@ import streamlit as st
 
 from cashflow import charts, data, metrics
 
+PERIOD_DAYS = {'7d': 7, '14d': 14, '30d': 30, '60d': 60, '90d': 90, '360d': 360}
+
 
 def format_brl(value):
     return f'R$ {value:,.2f}'.replace(',', 'X').replace('.', ',').replace('X', '.')
@@ -204,6 +206,17 @@ def apply_style():
             fill: #7a7a7a !important;
             color: #7a7a7a !important;
         }
+        div[data-testid='stButtonGroup'] {
+            gap: 8px !important;
+        }
+        div[data-testid='stButtonGroup'] button {
+            background-color: #ffffff !important; color: #1d1d1f !important;
+            border: 1px solid #e0e0e0 !important; border-radius: 9999px !important;
+        }
+        div[data-testid='stButtonGroup'] button[data-selected='true'] {
+            background-color: #0066cc !important; color: #ffffff !important;
+            border-color: #0066cc !important;
+        }
         div[data-testid='stSelectboxVirtualDropdown'] {
             background-color: #ffffff !important;
             border: 1px solid #e0e0e0 !important;
@@ -277,31 +290,29 @@ def apply_style():
 
 
 def build_filter_options(frame):
-    periods = sorted(frame['data_prevista'].dt.strftime('%Y-%m').unique())
     types = sorted(frame['tipo'].unique())
     categories = sorted(frame['categoria'].unique())
     centers = sorted(frame['centro_custo'].unique())
     statuses = sorted(frame['status'].unique())
     recurring_opts = sorted(frame['recorrente'].unique())
-    return periods, types, categories, centers, statuses, recurring_opts
+    return types, categories, centers, statuses, recurring_opts
 
 
-def render_filter_fields(periods, types, categories, centers, statuses, recurring_opts):
+def render_filter_fields(types, categories, centers, statuses, recurring_opts):
     keys = current_filter_keys()
+    period = st.pills('Período', list(PERIOD_DAYS), default='30d', key=keys['period'])
     top = st.columns(3, gap='medium')
     with top[0]:
-        period = st.selectbox('Período', ['Todos'] + periods, key=keys['period'])
-    with top[1]:
         type_sel = st.multiselect('Tipo', types, default=types, key=keys['type'])
-    with top[2]:
+    with top[1]:
         category_sel = st.multiselect('Categoria', categories, default=categories, key=keys['category'])
-    st.markdown('<div class=\'cash-filter-spacer\'></div>', unsafe_allow_html=True)
-    bottom = st.columns(3, gap='medium')
-    with bottom[0]:
+    with top[2]:
         center_sel = st.multiselect('Centro de Custo', centers, default=centers, key=keys['center'])
-    with bottom[1]:
+    st.markdown('<div class=\'cash-filter-spacer\'></div>', unsafe_allow_html=True)
+    bottom = st.columns(2, gap='medium')
+    with bottom[0]:
         status_sel = st.multiselect('Status', statuses, default=statuses, key=keys['status'])
-    with bottom[2]:
+    with bottom[1]:
         recurring_sel = st.multiselect('Recorrente', recurring_opts, default=recurring_opts, key=keys['recurring'])
     return period, type_sel, category_sel, center_sel, status_sel, recurring_sel
 
@@ -383,15 +394,13 @@ def main():
         unsafe_allow_html=True,
     )
     frame = data.with_signed_value(data.load_cashflow('data/cash_flow.csv'))
-    periods, types, categories, centers, statuses, recurring_opts = build_filter_options(frame)
+    types, categories, centers, statuses, recurring_opts = build_filter_options(frame)
     period, type_sel, category_sel, center_sel, status_sel, recurring_sel = render_filter_fields(
-        periods, types, categories, centers, statuses, recurring_opts
+        types, categories, centers, statuses, recurring_opts
     )
-    start = None
-    end = None
-    if period != 'Todos':
-        start = pd.to_datetime(period + '-01')
-        end = start + pd.offsets.MonthEnd(0)
+    days = PERIOD_DAYS.get(period, 30)
+    end = frame['data_prevista'].max()
+    start = end - pd.Timedelta(days=days - 1)
     filtered = data.filter_cashflow(
         frame,
         tipos=type_sel,

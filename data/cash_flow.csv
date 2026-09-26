@@ -1,31 +1,361 @@
-﻿id_lancamento;data_prevista;data_realizada;tipo;categoria;descricao;centro_custo;status;valor;recorrente
-1;2026-09-01;2026-09-01;Saída;Folha de pagamento;Pagamento de salários;RH;Pago;18500.0;Sim
-2;2026-09-02;2026-09-02;Entrada;Vendas;Recebimento Cliente Alfa;Comercial;Recebido;24500.0;Não
-3;2026-09-03;;Saída;Fornecedores;Compra de matéria-prima;Produção;Previsto;12800.0;Não
-4;2026-09-04;2026-09-04;Saída;Energia elétrica;Conta de energia;Produção;Pago;4200.0;Sim
-5;2026-09-05;;Entrada;Vendas;Recebimento Cliente Beta;Comercial;Previsto;18000.0;Não
-6;2026-09-06;;Saída;Impostos;Pagamento de tributos;Fiscal;Previsto;7600.0;Sim
-7;2026-09-07;2026-09-07;Entrada;Serviços;Recebimento contrato mensal;Comercial;Recebido;9500.0;Sim
-8;2026-09-08;;Saída;Manutenção;Manutenção preventiva de máquinas;Produção;Previsto;6800.0;Não
-9;2026-09-09;;Entrada;Vendas;Recebimento Cliente Gama;Comercial;Previsto;27500.0;Não
-10;2026-09-10;2026-09-10;Saída;Aluguel;Aluguel da unidade;Administrativo;Pago;5200.0;Sim
-11;2026-09-11;;Saída;Fornecedores;Compra de embalagens;Produção;Previsto;3900.0;Não
-12;2026-09-12;;Entrada;Vendas;Recebimento Cliente Delta;Comercial;Previsto;13200.0;Não
-13;2026-09-13;;Saída;Tecnologia;Licenças de software;Administrativo;Previsto;2100.0;Sim
-14;2026-09-14;2026-09-14;Entrada;Serviços;Recebimento projeto especial;Comercial;Recebido;16800.0;Não
-15;2026-09-15;;Saída;Folha de pagamento;Adiantamento salarial;RH;Previsto;9200.0;Sim
-16;2026-09-16;;Saída;Logística;Frete de materiais;Logística;Previsto;4700.0;Não
-17;2026-09-17;;Entrada;Vendas;Recebimento Cliente Épsilon;Comercial;Previsto;22100.0;Não
-18;2026-09-18;;Saída;Marketing;Campanha institucional;Comercial;Previsto;3500.0;Não
-19;2026-09-19;;Saída;Fornecedores;Compra emergencial de insumos;Produção;Previsto;15400.0;Não
-20;2026-09-20;;Entrada;Vendas;Recebimento Cliente Zeta;Comercial;Previsto;11900.0;Não
-21;2026-09-21;;Saída;Manutenção;Reparo corretivo;Produção;Previsto;8700.0;Não
-22;2026-09-22;;Entrada;Serviços;Recebimento suporte técnico;Comercial;Previsto;7400.0;Não
-23;2026-09-23;;Saída;Impostos;Recolhimento de impostos;Fiscal;Previsto;6100.0;Sim
-24;2026-09-24;;Saída;Seguros;Seguro patrimonial;Administrativo;Previsto;2800.0;Sim
-25;2026-09-25;;Entrada;Vendas;Recebimento Cliente Ômega;Comercial;Previsto;19800.0;Não
-26;2026-09-26;;Saída;Fornecedores;Compra de componentes;Produção;Previsto;11200.0;Não
-27;2026-09-27;;Entrada;Serviços;Recebimento manutenção contratada;Comercial;Previsto;8900.0;Não
-28;2026-09-28;;Saída;Energia elétrica;Consumo adicional de energia;Produção;Previsto;5100.0;Não
-29;2026-09-29;;Saída;Despesas administrativas;Materiais de escritório;Administrativo;Previsto;1650.0;Não
-30;2026-09-30;;Entrada;Vendas;Recebimento Cliente Sigma;Comercial;Previsto;14600.0;Não
+id_lancamento;data_prevista;data_realizada;tipo;categoria;descricao;centro_custo;status;valor;recorrente
+1;2025-10-06;2025-10-06;Saída;Tecnologia;Licenças de software;Administrativo;Pago;2049.3;Sim
+2;2025-10-07;2025-10-07;Saída;Energia elétrica;Conta de energia;Produção;Pago;4917.73;Sim
+3;2025-10-08;2025-10-08;Entrada;Vendas;Recebimento Cliente Iota;Comercial;Recebido;17137.35;Não
+4;2025-10-09;2025-10-09;Entrada;Vendas;Recebimento Cliente Delta;Comercial;Recebido;15800.83;Não
+5;2025-10-10;2025-10-10;Entrada;Vendas;Recebimento Cliente Chi;Comercial;Recebido;16728.41;Não
+6;2025-10-11;2025-10-11;Entrada;Serviços;Recebimento consultoria avulsa;Comercial;Recebido;7987.03;Sim
+7;2025-10-12;2025-10-12;Saída;Folha de pagamento;Adiantamento salarial;RH;Pago;9140.51;Sim
+8;2025-10-13;2025-10-13;Saída;Logística;Frete de materiais;Logística;Pago;5243.49;Não
+9;2025-10-14;2025-10-14;Entrada;Vendas;Recebimento Cliente Gama;Comercial;Recebido;15547.45;Não
+10;2025-10-15;2025-10-15;Entrada;Vendas;Recebimento Cliente Gama;Comercial;Recebido;19918.72;Não
+11;2025-10-16;2025-10-16;Saída;Manutenção;Reparo corretivo;Produção;Pago;7395.17;Não
+12;2025-10-17;2025-10-17;Saída;Fornecedores;Compra emergencial de insumos;Produção;Pago;10522.39;Não
+13;2025-10-18;2025-10-18;Saída;Seguros;Seguro patrimonial;Administrativo;Pago;3166.79;Sim
+14;2025-10-19;2025-10-19;Saída;Logística;Frete de materiais;Logística;Pago;4890.32;Não
+15;2025-10-20;2025-10-20;Saída;Fornecedores;Compra de embalagens;Produção;Pago;10875.46;Não
+16;2025-10-21;2025-10-21;Entrada;Serviços;Recebimento projeto especial;Comercial;Recebido;12664.61;Não
+17;2025-10-22;2025-10-22;Saída;Despesas administrativas;Materiais de escritório;Administrativo;Pago;1430.19;Não
+18;2025-10-23;2025-10-23;Saída;Despesas administrativas;Materiais de escritório;Administrativo;Pago;1558.65;Não
+19;2025-10-24;2025-10-24;Entrada;Vendas;Recebimento Cliente Psi;Comercial;Recebido;20032.39;Não
+20;2025-10-25;2025-10-25;Entrada;Serviços;Recebimento manutenção contratada;Comercial;Recebido;10038.64;Sim
+21;2025-10-26;2025-10-26;Saída;Fornecedores;Compra emergencial de insumos;Produção;Pago;9810.78;Não
+22;2025-10-27;2025-10-27;Saída;Tecnologia;Licenças de software;Administrativo;Pago;1950.53;Sim
+23;2025-10-28;2025-10-28;Saída;Logística;Frete de materiais;Logística;Pago;4558.15;Não
+24;2025-10-29;2025-10-29;Entrada;Vendas;Recebimento Cliente Fi;Comercial;Recebido;17964.99;Não
+25;2025-10-30;2025-10-30;Saída;Folha de pagamento;Adiantamento salarial;RH;Pago;8062.67;Sim
+26;2025-10-31;2025-10-31;Entrada;Serviços;Recebimento consultoria avulsa;Comercial;Recebido;7821.52;Sim
+27;2025-11-01;2025-11-01;Entrada;Serviços;Recebimento consultoria avulsa;Comercial;Recebido;8328.82;Sim
+28;2025-11-02;2025-11-02;Saída;Folha de pagamento;Pagamento de salários;RH;Pago;18973.53;Sim
+29;2025-11-03;2025-11-03;Entrada;Serviços;Recebimento suporte técnico;Comercial;Recebido;12966.96;Não
+30;2025-11-04;2025-11-04;Entrada;Vendas;Recebimento Cliente Iota;Comercial;Recebido;16154.05;Não
+31;2025-11-05;2025-11-05;Entrada;Vendas;Recebimento Cliente Fi;Comercial;Recebido;19414.6;Não
+32;2025-11-06;2025-11-06;Saída;Folha de pagamento;Adiantamento salarial;RH;Pago;10000.4;Sim
+33;2025-11-07;2025-11-07;Entrada;Serviços;Recebimento consultoria avulsa;Comercial;Recebido;10916.08;Não
+34;2025-11-08;2025-11-08;Entrada;Vendas;Recebimento Cliente Qui;Comercial;Recebido;20448.9;Não
+35;2025-11-09;2025-11-09;Saída;Folha de pagamento;Pagamento de salários;RH;Pago;18534.3;Sim
+36;2025-11-10;2025-11-10;Saída;Folha de pagamento;Adiantamento salarial;RH;Pago;10158.57;Sim
+37;2025-11-11;2025-11-11;Saída;Despesas administrativas;Materiais de escritório;Administrativo;Pago;1554.72;Não
+38;2025-11-12;2025-11-12;Entrada;Serviços;Recebimento contrato mensal;Comercial;Recebido;10508.35;Não
+39;2025-11-13;2025-11-13;Saída;Folha de pagamento;Adiantamento salarial;RH;Pago;10290.56;Sim
+40;2025-11-14;2025-11-14;Saída;Fornecedores;Compra de embalagens;Produção;Pago;11527.18;Não
+41;2025-11-15;2025-11-15;Saída;Fornecedores;Compra emergencial de insumos;Produção;Pago;11091.32;Não
+42;2025-11-16;2025-11-16;Saída;Fornecedores;Compra de ferramentas;Produção;Pago;11842.38;Não
+43;2025-11-17;2025-11-17;Saída;Seguros;Seguro patrimonial;Administrativo;Pago;2641.84;Sim
+44;2025-11-18;2025-11-18;Saída;Marketing;Campanha institucional;Comercial;Pago;3367.09;Não
+45;2025-11-19;2025-11-19;Saída;Aluguel;Aluguel da unidade;Administrativo;Pago;4608.77;Sim
+46;2025-11-20;2025-11-20;Entrada;Vendas;Recebimento Cliente Alfa;Comercial;Recebido;18476.87;Não
+47;2025-11-21;2025-11-21;Entrada;Vendas;Recebimento Cliente Alfa;Comercial;Recebido;15683.36;Não
+48;2025-11-22;2025-11-22;Saída;Fornecedores;Compra de matéria-prima;Produção;Pago;12337.89;Não
+49;2025-11-23;2025-11-23;Saída;Folha de pagamento;Adiantamento salarial;RH;Pago;9038.22;Sim
+50;2025-11-24;2025-11-24;Entrada;Serviços;Recebimento projeto especial;Comercial;Recebido;9105.93;Sim
+51;2025-11-25;2025-11-25;Saída;Logística;Frete de materiais;Logística;Pago;4807.46;Não
+52;2025-11-26;2025-11-26;Entrada;Serviços;Recebimento manutenção contratada;Comercial;Recebido;8164.11;Sim
+53;2025-11-27;2025-11-27;Entrada;Serviços;Recebimento suporte técnico;Comercial;Recebido;8793.66;Sim
+54;2025-11-28;2025-11-28;Saída;Seguros;Seguro patrimonial;Administrativo;Pago;2425.5;Sim
+55;2025-11-29;2025-11-29;Saída;Marketing;Campanha institucional;Comercial;Pago;3078.34;Não
+56;2025-11-30;2025-11-30;Saída;Impostos;Pagamento de tributos;Fiscal;Pago;7413.21;Sim
+57;2025-12-01;2025-12-01;Entrada;Vendas;Recebimento Cliente Ômega;Comercial;Recebido;18195.94;Não
+58;2025-12-02;2025-12-02;Entrada;Vendas;Recebimento Cliente Kappa;Comercial;Recebido;17798.19;Não
+59;2025-12-03;2025-12-03;Saída;Folha de pagamento;Adiantamento salarial;RH;Pago;8846.45;Sim
+60;2025-12-04;2025-12-04;Saída;Tecnologia;Licenças de software;Administrativo;Pago;1846.68;Sim
+61;2025-12-05;2025-12-05;Saída;Tecnologia;Licenças de software;Administrativo;Pago;2311.7;Sim
+62;2025-12-06;2025-12-06;Saída;Despesas administrativas;Materiais de escritório;Administrativo;Pago;1822.6;Não
+63;2025-12-07;2025-12-07;Entrada;Serviços;Recebimento manutenção contratada;Comercial;Recebido;8227.12;Sim
+64;2025-12-08;2025-12-08;Saída;Folha de pagamento;Pagamento de salários;RH;Pago;16189.04;Sim
+65;2025-12-09;2025-12-09;Entrada;Serviços;Recebimento suporte técnico;Comercial;Recebido;10151.6;Sim
+66;2025-12-10;2025-12-10;Saída;Energia elétrica;Conta de energia;Produção;Pago;4396.06;Sim
+67;2025-12-11;2025-12-11;Saída;Despesas administrativas;Materiais de escritório;Administrativo;Pago;1677.61;Não
+68;2025-12-12;2025-12-12;Saída;Fornecedores;Compra de embalagens;Produção;Pago;10329.14;Não
+69;2025-12-13;2025-12-13;Saída;Logística;Frete de materiais;Logística;Pago;5032.39;Não
+70;2025-12-14;2025-12-14;Entrada;Vendas;Recebimento Cliente Beta;Comercial;Recebido;15570.77;Não
+71;2025-12-15;2025-12-15;Saída;Tecnologia;Licenças de software;Administrativo;Pago;1884.18;Sim
+72;2025-12-16;2025-12-16;Saída;Folha de pagamento;Adiantamento salarial;RH;Pago;9948.62;Sim
+73;2025-12-17;2025-12-17;Entrada;Vendas;Recebimento Cliente Sigma;Comercial;Recebido;17480.39;Não
+74;2025-12-18;2025-12-18;Saída;Logística;Frete de materiais;Logística;Pago;4342.16;Não
+75;2025-12-19;2025-12-19;Saída;Logística;Frete de materiais;Logística;Pago;4110.6;Não
+76;2025-12-20;2025-12-20;Saída;Logística;Frete de materiais;Logística;Pago;4732.12;Não
+77;2025-12-21;2025-12-21;Saída;Fornecedores;Compra emergencial de insumos;Produção;Pago;10137.66;Não
+78;2025-12-22;2025-12-22;Entrada;Vendas;Recebimento Cliente Ni;Comercial;Recebido;17007.36;Não
+79;2025-12-23;2025-12-23;Saída;Folha de pagamento;Adiantamento salarial;RH;Pago;7675.15;Sim
+80;2025-12-24;2025-12-24;Saída;Logística;Frete de materiais;Logística;Pago;5399.5;Não
+81;2025-12-25;2025-12-25;Entrada;Vendas;Recebimento Cliente Fi;Comercial;Recebido;16732.08;Não
+82;2025-12-26;2025-12-26;Saída;Folha de pagamento;Adiantamento salarial;RH;Pago;10024.03;Sim
+83;2025-12-27;2025-12-27;Entrada;Vendas;Recebimento Cliente Ni;Comercial;Recebido;19802.22;Não
+84;2025-12-28;2025-12-28;Saída;Logística;Frete de materiais;Logística;Pago;5382.23;Não
+85;2025-12-29;2025-12-29;Saída;Tecnologia;Licenças de software;Administrativo;Pago;1789.93;Sim
+86;2025-12-30;2025-12-30;Saída;Energia elétrica;Conta de energia;Produção;Pago;5082.87;Sim
+87;2025-12-31;2025-12-31;Entrada;Vendas;Recebimento Cliente Kappa;Comercial;Recebido;15923.31;Não
+88;2026-01-01;2026-01-01;Entrada;Serviços;Recebimento projeto especial;Comercial;Recebido;11180.45;Não
+89;2026-01-02;2026-01-02;Saída;Seguros;Seguro patrimonial;Administrativo;Pago;2668.02;Sim
+90;2026-01-03;2026-01-03;Saída;Energia elétrica;Conta de energia;Produção;Pago;4507.3;Sim
+91;2026-01-04;2026-01-04;Entrada;Vendas;Recebimento Cliente Gama;Comercial;Recebido;18725.14;Não
+92;2026-01-05;2026-01-05;Saída;Folha de pagamento;Pagamento de salários;RH;Pago;15319.15;Sim
+93;2026-01-06;2026-01-06;Saída;Marketing;Campanha institucional;Comercial;Pago;4003.79;Não
+94;2026-01-07;2026-01-07;Entrada;Serviços;Recebimento consultoria avulsa;Comercial;Recebido;9555.3;Sim
+95;2026-01-08;2026-01-08;Saída;Folha de pagamento;Adiantamento salarial;RH;Pago;7853.16;Sim
+96;2026-01-09;2026-01-09;Saída;Fornecedores;Compra de ferramentas;Produção;Pago;9468.89;Não
+97;2026-01-10;2026-01-10;Entrada;Serviços;Recebimento projeto especial;Comercial;Recebido;11747.23;Não
+98;2026-01-11;2026-01-11;Entrada;Vendas;Recebimento Cliente Beta;Comercial;Recebido;20154.19;Não
+99;2026-01-12;2026-01-12;Entrada;Vendas;Recebimento Cliente Delta;Comercial;Recebido;17209.86;Não
+100;2026-01-13;2026-01-13;Saída;Manutenção;Calibração de equipamentos;Produção;Pago;8061.32;Não
+101;2026-01-14;2026-01-14;Saída;Fornecedores;Compra de embalagens;Produção;Pago;12571.48;Não
+102;2026-01-15;2026-01-15;Saída;Manutenção;Manutenção preventiva de máquinas;Produção;Pago;6778.56;Não
+103;2026-01-16;2026-01-16;Saída;Despesas administrativas;Materiais de escritório;Administrativo;Pago;1863.25;Não
+104;2026-01-17;2026-01-17;Saída;Seguros;Seguro patrimonial;Administrativo;Pago;3061.03;Sim
+105;2026-01-18;2026-01-18;Entrada;Vendas;Recebimento Cliente Theta;Comercial;Recebido;20009.7;Não
+106;2026-01-19;2026-01-19;Saída;Fornecedores;Compra de embalagens;Produção;Pago;12044.74;Não
+107;2026-01-20;2026-01-20;Saída;Energia elétrica;Conta de energia;Produção;Pago;4932.72;Sim
+108;2026-01-21;2026-01-21;Saída;Fornecedores;Compra de matéria-prima;Produção;Pago;11528.11;Não
+109;2026-01-22;2026-01-22;Entrada;Vendas;Recebimento Cliente Gama;Comercial;Recebido;20521.2;Não
+110;2026-01-23;2026-01-23;Entrada;Serviços;Recebimento manutenção contratada;Comercial;Recebido;12646.27;Não
+111;2026-01-24;2026-01-24;Saída;Impostos;Pagamento de tributos;Fiscal;Pago;7696.04;Sim
+112;2026-01-25;2026-01-25;Entrada;Vendas;Recebimento Cliente Zeta;Comercial;Recebido;18435.18;Não
+113;2026-01-26;2026-01-26;Saída;Folha de pagamento;Pagamento de salários;RH;Pago;15885.37;Sim
+114;2026-01-27;2026-01-27;Saída;Seguros;Seguro patrimonial;Administrativo;Pago;3040.6;Sim
+115;2026-01-28;2026-01-28;Saída;Tecnologia;Licenças de software;Administrativo;Pago;1857.86;Sim
+116;2026-01-29;2026-01-29;Saída;Fornecedores;Compra emergencial de insumos;Produção;Pago;9496.48;Não
+117;2026-01-30;2026-01-30;Saída;Tecnologia;Licenças de software;Administrativo;Pago;2368.11;Sim
+118;2026-01-31;2026-01-31;Saída;Seguros;Seguro patrimonial;Administrativo;Pago;3169.82;Sim
+119;2026-02-01;2026-02-01;Saída;Fornecedores;Compra emergencial de insumos;Produção;Pago;10773.28;Não
+120;2026-02-02;2026-02-02;Saída;Impostos;Pagamento de tributos;Fiscal;Pago;7051.24;Sim
+121;2026-02-03;2026-02-03;Saída;Folha de pagamento;Adiantamento salarial;RH;Pago;9593.34;Sim
+122;2026-02-04;2026-02-04;Entrada;Vendas;Recebimento Cliente Iota;Comercial;Recebido;17061.39;Não
+123;2026-02-05;2026-02-05;Saída;Tecnologia;Licenças de software;Administrativo;Pago;1865.19;Sim
+124;2026-02-06;2026-02-06;Saída;Manutenção;Calibração de equipamentos;Produção;Pago;8058.3;Não
+125;2026-02-07;2026-02-07;Entrada;Serviços;Recebimento suporte técnico;Comercial;Recebido;11661.87;Não
+126;2026-02-08;2026-02-08;Saída;Energia elétrica;Conta de energia;Produção;Pago;4212.33;Sim
+127;2026-02-09;2026-02-09;Saída;Logística;Frete de materiais;Logística;Pago;4850.39;Não
+128;2026-02-10;2026-02-10;Entrada;Serviços;Recebimento manutenção contratada;Comercial;Recebido;9474.19;Sim
+129;2026-02-11;2026-02-11;Saída;Despesas administrativas;Materiais de escritório;Administrativo;Pago;1848.58;Não
+130;2026-02-12;2026-02-12;Saída;Fornecedores;Compra de matéria-prima;Produção;Pago;10286.5;Não
+131;2026-02-13;2026-02-13;Saída;Logística;Frete de materiais;Logística;Pago;4467.62;Não
+132;2026-02-14;2026-02-14;Saída;Despesas administrativas;Materiais de escritório;Administrativo;Pago;1518.76;Não
+133;2026-02-15;2026-02-15;Entrada;Vendas;Recebimento Cliente Épsilon;Comercial;Recebido;15431.9;Não
+134;2026-02-16;2026-02-16;Entrada;Serviços;Recebimento consultoria avulsa;Comercial;Recebido;9944.29;Sim
+135;2026-02-17;2026-02-17;Entrada;Serviços;Recebimento consultoria avulsa;Comercial;Recebido;8174.98;Sim
+136;2026-02-18;2026-02-18;Saída;Aluguel;Aluguel da unidade;Administrativo;Pago;5043.46;Sim
+137;2026-02-19;2026-02-19;Entrada;Vendas;Recebimento Cliente Delta;Comercial;Recebido;19503.47;Não
+138;2026-02-20;2026-02-20;Entrada;Serviços;Recebimento manutenção contratada;Comercial;Recebido;10380.79;Não
+139;2026-02-21;2026-02-21;Entrada;Vendas;Recebimento Cliente Ni;Comercial;Recebido;16020.03;Não
+140;2026-02-22;2026-02-22;Saída;Tecnologia;Licenças de software;Administrativo;Pago;2407.37;Sim
+141;2026-02-23;2026-02-23;Saída;Despesas administrativas;Materiais de escritório;Administrativo;Pago;1843.76;Não
+142;2026-02-24;2026-02-24;Saída;Seguros;Seguro patrimonial;Administrativo;Pago;3129.3;Sim
+143;2026-02-25;2026-02-25;Saída;Tecnologia;Licenças de software;Administrativo;Pago;2065.93;Sim
+144;2026-02-26;2026-02-26;Entrada;Serviços;Recebimento manutenção contratada;Comercial;Recebido;8349.82;Sim
+145;2026-02-27;2026-02-27;Entrada;Vendas;Recebimento Cliente Fi;Comercial;Recebido;17916.82;Não
+146;2026-02-28;2026-02-28;Entrada;Serviços;Recebimento contrato mensal;Comercial;Recebido;9576.57;Sim
+147;2026-03-01;2026-03-01;Entrada;Vendas;Recebimento Cliente Tau;Comercial;Recebido;20122.34;Não
+148;2026-03-02;2026-03-02;Entrada;Vendas;Recebimento Cliente Sigma;Comercial;Recebido;17368.39;Não
+149;2026-03-03;2026-03-03;Entrada;Vendas;Recebimento Cliente Gama;Comercial;Recebido;17540.29;Não
+150;2026-03-04;2026-03-04;Entrada;Serviços;Recebimento manutenção contratada;Comercial;Recebido;7818.12;Sim
+151;2026-03-05;2026-03-05;Saída;Manutenção;Calibração de equipamentos;Produção;Pago;8503.64;Não
+152;2026-03-06;2026-03-06;Entrada;Serviços;Recebimento manutenção contratada;Comercial;Recebido;11917.13;Não
+153;2026-03-07;2026-03-07;Saída;Energia elétrica;Conta de energia;Produção;Pago;4842.19;Sim
+154;2026-03-08;2026-03-08;Saída;Manutenção;Calibração de equipamentos;Produção;Pago;8056.91;Não
+155;2026-03-09;2026-03-09;Saída;Logística;Frete de materiais;Logística;Pago;5260.91;Não
+156;2026-03-10;2026-03-10;Saída;Energia elétrica;Conta de energia;Produção;Pago;4413.38;Sim
+157;2026-03-11;2026-03-11;Entrada;Vendas;Recebimento Cliente Theta;Comercial;Recebido;19210.58;Não
+158;2026-03-12;2026-03-12;Saída;Fornecedores;Compra de ferramentas;Produção;Pago;11112.61;Não
+159;2026-03-13;2026-03-13;Saída;Logística;Frete de materiais;Logística;Pago;4790.79;Não
+160;2026-03-14;2026-03-14;Entrada;Serviços;Recebimento projeto especial;Comercial;Recebido;9990.5;Sim
+161;2026-03-15;2026-03-15;Entrada;Vendas;Recebimento Cliente Theta;Comercial;Recebido;17067.7;Não
+162;2026-03-16;2026-03-16;Saída;Impostos;Pagamento de tributos;Fiscal;Pago;7332.91;Sim
+163;2026-03-17;2026-03-17;Entrada;Serviços;Recebimento suporte técnico;Comercial;Recebido;9904.26;Sim
+164;2026-03-18;2026-03-18;Saída;Seguros;Seguro patrimonial;Administrativo;Pago;2833.11;Sim
+165;2026-03-19;2026-03-19;Saída;Impostos;Pagamento de tributos;Fiscal;Pago;6237.41;Sim
+166;2026-03-20;2026-03-20;Entrada;Vendas;Recebimento Cliente Alfa;Comercial;Recebido;20427.9;Não
+167;2026-03-21;2026-03-21;Entrada;Vendas;Recebimento Cliente Chi;Comercial;Recebido;16122.86;Não
+168;2026-03-22;2026-03-22;Entrada;Vendas;Recebimento Cliente Psi;Comercial;Recebido;20417.89;Não
+169;2026-03-23;2026-03-23;Saída;Energia elétrica;Conta de energia;Produção;Pago;4860.31;Sim
+170;2026-03-24;2026-03-24;Entrada;Serviços;Recebimento contrato mensal;Comercial;Recebido;13000.05;Não
+171;2026-03-25;2026-03-25;Entrada;Vendas;Recebimento Cliente Delta;Comercial;Recebido;18424.9;Não
+172;2026-03-26;2026-03-26;Saída;Logística;Frete de materiais;Logística;Pago;4950.06;Não
+173;2026-03-27;2026-03-27;Saída;Manutenção;Calibração de equipamentos;Produção;Pago;6821.24;Não
+174;2026-03-28;2026-03-28;Saída;Marketing;Campanha institucional;Comercial;Pago;3229.99;Não
+175;2026-03-29;2026-03-29;Saída;Energia elétrica;Conta de energia;Produção;Pago;4972.9;Sim
+176;2026-03-30;2026-03-30;Saída;Folha de pagamento;Adiantamento salarial;RH;Pago;9799.81;Sim
+177;2026-03-31;2026-03-31;Saída;Folha de pagamento;Pagamento de salários;RH;Pago;17174.9;Sim
+178;2026-04-01;2026-04-01;Saída;Impostos;Pagamento de tributos;Fiscal;Pago;5920.67;Sim
+179;2026-04-02;2026-04-02;Saída;Folha de pagamento;Pagamento de salários;RH;Pago;19887.71;Sim
+180;2026-04-03;2026-04-03;Saída;Folha de pagamento;Adiantamento salarial;RH;Pago;8820.51;Sim
+181;2026-04-04;2026-04-04;Entrada;Serviços;Recebimento projeto especial;Comercial;Recebido;8825.82;Sim
+182;2026-04-05;2026-04-05;Saída;Marketing;Campanha institucional;Comercial;Pago;3258.59;Não
+183;2026-04-06;2026-04-06;Saída;Tecnologia;Licenças de software;Administrativo;Pago;2273.02;Sim
+184;2026-04-07;2026-04-07;Saída;Seguros;Seguro patrimonial;Administrativo;Pago;2877.68;Sim
+185;2026-04-08;2026-04-08;Entrada;Vendas;Recebimento Cliente Gama;Comercial;Recebido;16806.21;Não
+186;2026-04-09;2026-04-09;Saída;Despesas administrativas;Materiais de escritório;Administrativo;Pago;1632.53;Não
+187;2026-04-10;2026-04-10;Saída;Manutenção;Reparo corretivo;Produção;Pago;6439.57;Não
+188;2026-04-11;2026-04-11;Saída;Fornecedores;Compra de componentes;Produção;Pago;10050.0;Não
+189;2026-04-12;2026-04-12;Saída;Impostos;Pagamento de tributos;Fiscal;Pago;6350.5;Sim
+190;2026-04-13;2026-04-13;Saída;Energia elétrica;Conta de energia;Produção;Pago;4575.32;Sim
+191;2026-04-14;2026-04-14;Saída;Fornecedores;Compra de matéria-prima;Produção;Pago;10146.47;Não
+192;2026-04-15;2026-04-15;Saída;Tecnologia;Licenças de software;Administrativo;Pago;2262.64;Sim
+193;2026-04-16;2026-04-16;Saída;Marketing;Campanha institucional;Comercial;Pago;3722.43;Não
+194;2026-04-17;2026-04-17;Saída;Folha de pagamento;Pagamento de salários;RH;Pago;15802.49;Sim
+195;2026-04-18;2026-04-18;Entrada;Vendas;Recebimento Cliente Lambda;Comercial;Recebido;18885.38;Não
+196;2026-04-19;2026-04-19;Entrada;Serviços;Recebimento consultoria avulsa;Comercial;Recebido;11437.53;Não
+197;2026-04-20;2026-04-20;Saída;Tecnologia;Licenças de software;Administrativo;Pago;1993.4;Sim
+198;2026-04-21;2026-04-21;Saída;Energia elétrica;Conta de energia;Produção;Pago;4238.94;Sim
+199;2026-04-22;2026-04-22;Entrada;Vendas;Recebimento Cliente Tau;Comercial;Recebido;15945.6;Não
+200;2026-04-23;2026-04-23;Saída;Despesas administrativas;Materiais de escritório;Administrativo;Pago;1744.13;Não
+201;2026-04-24;2026-04-24;Entrada;Serviços;Recebimento suporte técnico;Comercial;Recebido;9606.38;Sim
+202;2026-04-25;2026-04-25;Saída;Tecnologia;Licenças de software;Administrativo;Pago;2160.98;Sim
+203;2026-04-26;2026-04-26;Saída;Fornecedores;Compra emergencial de insumos;Produção;Pago;10100.69;Não
+204;2026-04-27;2026-04-27;Entrada;Vendas;Recebimento Cliente Qui;Comercial;Recebido;15983.55;Não
+205;2026-04-28;2026-04-28;Entrada;Vendas;Recebimento Cliente Qui;Comercial;Recebido;16877.54;Não
+206;2026-04-29;2026-04-29;Saída;Marketing;Campanha institucional;Comercial;Pago;3886.88;Não
+207;2026-04-30;2026-04-30;Saída;Folha de pagamento;Pagamento de salários;RH;Pago;18399.95;Sim
+208;2026-05-01;2026-05-01;Saída;Aluguel;Aluguel da unidade;Administrativo;Pago;4951.5;Sim
+209;2026-05-02;2026-05-02;Saída;Energia elétrica;Conta de energia;Produção;Pago;5095.44;Sim
+210;2026-05-03;2026-05-03;Saída;Folha de pagamento;Adiantamento salarial;RH;Pago;8731.91;Sim
+211;2026-05-04;2026-05-04;Entrada;Vendas;Recebimento Cliente Épsilon;Comercial;Recebido;16105.67;Não
+212;2026-05-05;2026-05-05;Saída;Energia elétrica;Conta de energia;Produção;Pago;3939.99;Sim
+213;2026-05-06;2026-05-06;Entrada;Serviços;Recebimento manutenção contratada;Comercial;Recebido;12382.74;Não
+214;2026-05-07;2026-05-07;Saída;Fornecedores;Compra de ferramentas;Produção;Pago;10605.25;Não
+215;2026-05-08;2026-05-08;Saída;Energia elétrica;Conta de energia;Produção;Pago;4986.22;Sim
+216;2026-05-09;2026-05-09;Saída;Energia elétrica;Conta de energia;Produção;Pago;4592.65;Sim
+217;2026-05-10;2026-05-10;Entrada;Vendas;Recebimento Cliente Ômega;Comercial;Recebido;18677.78;Não
+218;2026-05-11;2026-05-11;Entrada;Vendas;Recebimento Cliente Zeta;Comercial;Recebido;16595.27;Não
+219;2026-05-12;2026-05-12;Saída;Fornecedores;Compra de matéria-prima;Produção;Pago;10698.11;Não
+220;2026-05-13;2026-05-13;Saída;Aluguel;Aluguel da unidade;Administrativo;Pago;4874.36;Sim
+221;2026-05-14;2026-05-14;Entrada;Vendas;Recebimento Cliente Ni;Comercial;Recebido;15684.37;Não
+222;2026-05-15;2026-05-15;Entrada;Vendas;Recebimento Cliente Psi;Comercial;Recebido;18870.39;Não
+223;2026-05-16;2026-05-16;Saída;Manutenção;Manutenção preventiva de máquinas;Produção;Pago;7600.27;Não
+224;2026-05-17;2026-05-17;Saída;Energia elétrica;Conta de energia;Produção;Pago;4940.95;Sim
+225;2026-05-18;2026-05-18;Entrada;Vendas;Recebimento Cliente Lambda;Comercial;Recebido;18513.24;Não
+226;2026-05-19;2026-05-19;Saída;Energia elétrica;Conta de energia;Produção;Pago;4417.86;Sim
+227;2026-05-20;2026-05-20;Saída;Energia elétrica;Conta de energia;Produção;Pago;4769.64;Sim
+228;2026-05-21;2026-05-21;Saída;Tecnologia;Licenças de software;Administrativo;Pago;2125.19;Sim
+229;2026-05-22;2026-05-22;Saída;Logística;Frete de materiais;Logística;Pago;4051.2;Não
+230;2026-05-23;2026-05-23;Saída;Impostos;Pagamento de tributos;Fiscal;Pago;7011.58;Sim
+231;2026-05-24;2026-05-24;Entrada;Vendas;Recebimento Cliente Psi;Comercial;Recebido;18470.46;Não
+232;2026-05-25;2026-05-25;Entrada;Vendas;Recebimento Cliente Psi;Comercial;Recebido;15517.25;Não
+233;2026-05-26;2026-05-26;Saída;Aluguel;Aluguel da unidade;Administrativo;Pago;5229.58;Sim
+234;2026-05-27;2026-05-27;Saída;Energia elétrica;Conta de energia;Produção;Pago;4070.01;Sim
+235;2026-05-28;2026-05-28;Saída;Marketing;Campanha institucional;Comercial;Pago;3829.96;Não
+236;2026-05-29;2026-05-29;Saída;Aluguel;Aluguel da unidade;Administrativo;Pago;4962.82;Sim
+237;2026-05-30;2026-05-30;Entrada;Vendas;Recebimento Cliente Zeta;Comercial;Recebido;17080.94;Não
+238;2026-05-31;2026-05-31;Saída;Energia elétrica;Conta de energia;Produção;Pago;4719.49;Sim
+239;2026-06-01;2026-06-01;Saída;Despesas administrativas;Materiais de escritório;Administrativo;Pago;1674.8;Não
+240;2026-06-02;2026-06-02;Saída;Impostos;Pagamento de tributos;Fiscal;Pago;6294.89;Sim
+241;2026-06-03;2026-06-03;Entrada;Serviços;Recebimento consultoria avulsa;Comercial;Recebido;9877.3;Sim
+242;2026-06-04;2026-06-04;Entrada;Serviços;Recebimento manutenção contratada;Comercial;Recebido;11687.69;Não
+243;2026-06-05;2026-06-05;Entrada;Vendas;Recebimento Cliente Chi;Comercial;Recebido;19384.79;Não
+244;2026-06-06;2026-06-06;Saída;Despesas administrativas;Materiais de escritório;Administrativo;Pago;1428.05;Não
+245;2026-06-07;2026-06-07;Entrada;Vendas;Recebimento Cliente Lambda;Comercial;Recebido;17665.83;Não
+246;2026-06-08;2026-06-08;Saída;Folha de pagamento;Adiantamento salarial;RH;Pago;7727.95;Sim
+247;2026-06-09;2026-06-09;Saída;Despesas administrativas;Materiais de escritório;Administrativo;Pago;1520.95;Não
+248;2026-06-10;2026-06-10;Entrada;Serviços;Recebimento contrato mensal;Comercial;Recebido;12188.11;Não
+249;2026-06-11;2026-06-11;Entrada;Vendas;Recebimento Cliente Ni;Comercial;Recebido;20414.13;Não
+250;2026-06-12;2026-06-12;Saída;Fornecedores;Compra de componentes;Produção;Pago;12427.76;Não
+251;2026-06-13;2026-06-13;Entrada;Vendas;Recebimento Cliente Iota;Comercial;Recebido;19807.51;Não
+252;2026-06-14;2026-06-14;Saída;Fornecedores;Compra de componentes;Produção;Pago;11169.17;Não
+253;2026-06-15;2026-06-15;Entrada;Serviços;Recebimento consultoria avulsa;Comercial;Recebido;12886.65;Não
+254;2026-06-16;2026-06-16;Entrada;Vendas;Recebimento Cliente Kappa;Comercial;Recebido;19472.45;Não
+255;2026-06-17;2026-06-17;Saída;Impostos;Pagamento de tributos;Fiscal;Pago;7685.87;Sim
+256;2026-06-18;2026-06-18;Saída;Folha de pagamento;Pagamento de salários;RH;Pago;16827.33;Sim
+257;2026-06-19;2026-06-19;Entrada;Serviços;Recebimento consultoria avulsa;Comercial;Recebido;13796.05;Não
+258;2026-06-20;2026-06-20;Saída;Fornecedores;Compra de componentes;Produção;Pago;11127.32;Não
+259;2026-06-21;2026-06-21;Entrada;Serviços;Recebimento consultoria avulsa;Comercial;Recebido;11557.96;Não
+260;2026-06-22;2026-06-22;Saída;Fornecedores;Compra de embalagens;Produção;Pago;11236.93;Não
+261;2026-06-23;2026-06-23;Entrada;Serviços;Recebimento contrato mensal;Comercial;Recebido;8509.08;Sim
+262;2026-06-24;2026-06-24;Saída;Despesas administrativas;Materiais de escritório;Administrativo;Pago;1591.21;Não
+263;2026-06-25;2026-06-25;Saída;Despesas administrativas;Materiais de escritório;Administrativo;Pago;1808.77;Não
+264;2026-06-26;2026-06-26;Saída;Aluguel;Aluguel da unidade;Administrativo;Pago;5925.13;Sim
+265;2026-06-27;2026-06-27;Entrada;Serviços;Recebimento suporte técnico;Comercial;Recebido;13330.92;Não
+266;2026-06-28;2026-06-28;Saída;Aluguel;Aluguel da unidade;Administrativo;Pago;4575.55;Sim
+267;2026-06-29;2026-06-29;Saída;Folha de pagamento;Pagamento de salários;RH;Pago;19201.2;Sim
+268;2026-06-30;2026-06-30;Saída;Marketing;Campanha institucional;Comercial;Pago;3993.45;Não
+269;2026-07-01;2026-07-01;Entrada;Vendas;Recebimento Cliente Tau;Comercial;Recebido;18665.6;Não
+270;2026-07-02;2026-07-02;Entrada;Vendas;Recebimento Cliente Tau;Comercial;Recebido;19902.64;Não
+271;2026-07-03;2026-07-03;Saída;Manutenção;Reparo corretivo;Produção;Pago;7785.3;Não
+272;2026-07-04;2026-07-04;Saída;Aluguel;Aluguel da unidade;Administrativo;Pago;5780.92;Sim
+273;2026-07-05;2026-07-05;Entrada;Vendas;Recebimento Cliente Sigma;Comercial;Recebido;18708.27;Não
+274;2026-07-06;2026-07-06;Saída;Fornecedores;Compra de matéria-prima;Produção;Pago;10782.11;Não
+275;2026-07-07;2026-07-07;Entrada;Vendas;Recebimento Cliente Ni;Comercial;Recebido;16198.37;Não
+276;2026-07-08;2026-07-08;Entrada;Vendas;Recebimento Cliente Beta;Comercial;Recebido;17051.62;Não
+277;2026-07-09;2026-07-09;Entrada;Vendas;Recebimento Cliente Rho;Comercial;Recebido;17625.71;Não
+278;2026-07-10;2026-07-10;Entrada;Serviços;Recebimento consultoria avulsa;Comercial;Recebido;9490.86;Sim
+279;2026-07-11;2026-07-11;Entrada;Vendas;Recebimento Cliente Gama;Comercial;Recebido;18591.26;Não
+280;2026-07-12;2026-07-12;Entrada;Vendas;Recebimento Cliente Mi;Comercial;Recebido;20229.28;Não
+281;2026-07-13;2026-07-13;Entrada;Serviços;Recebimento suporte técnico;Comercial;Recebido;8890.84;Sim
+282;2026-07-14;2026-07-14;Saída;Despesas administrativas;Materiais de escritório;Administrativo;Pago;1632.8;Não
+283;2026-07-15;2026-07-15;Entrada;Serviços;Recebimento projeto especial;Comercial;Recebido;10465.9;Não
+284;2026-07-16;2026-07-16;Saída;Logística;Frete de materiais;Logística;Pago;4416.81;Não
+285;2026-07-17;2026-07-17;Saída;Seguros;Seguro patrimonial;Administrativo;Pago;2590.08;Sim
+286;2026-07-18;2026-07-18;Saída;Fornecedores;Compra de componentes;Produção;Pago;12166.01;Não
+287;2026-07-19;2026-07-19;Entrada;Serviços;Recebimento consultoria avulsa;Comercial;Recebido;8619.19;Sim
+288;2026-07-20;2026-07-20;Entrada;Vendas;Recebimento Cliente Alfa;Comercial;Recebido;20580.9;Não
+289;2026-07-21;2026-07-21;Saída;Energia elétrica;Conta de energia;Produção;Pago;3835.93;Sim
+290;2026-07-22;2026-07-22;Saída;Despesas administrativas;Materiais de escritório;Administrativo;Pago;1771.11;Não
+291;2026-07-23;2026-07-23;Entrada;Serviços;Recebimento manutenção contratada;Comercial;Recebido;13198.22;Não
+292;2026-07-24;2026-07-24;Saída;Despesas administrativas;Materiais de escritório;Administrativo;Pago;1797.94;Não
+293;2026-07-25;2026-07-25;Saída;Impostos;Pagamento de tributos;Fiscal;Pago;6226.77;Sim
+294;2026-07-26;2026-07-26;Entrada;Vendas;Recebimento Cliente Épsilon;Comercial;Recebido;18692.54;Não
+295;2026-07-27;2026-07-27;Saída;Marketing;Campanha institucional;Comercial;Pago;3016.39;Não
+296;2026-07-28;2026-07-28;Saída;Folha de pagamento;Pagamento de salários;RH;Pago;18429.7;Sim
+297;2026-07-29;2026-07-29;Saída;Folha de pagamento;Adiantamento salarial;RH;Pago;10106.0;Sim
+298;2026-07-30;2026-07-30;Entrada;Serviços;Recebimento projeto especial;Comercial;Recebido;8192.15;Sim
+299;2026-07-31;2026-07-31;Saída;Impostos;Pagamento de tributos;Fiscal;Pago;6862.94;Sim
+300;2026-08-01;2026-08-01;Saída;Fornecedores;Compra emergencial de insumos;Produção;Pago;12366.36;Não
+301;2026-08-02;2026-08-02;Saída;Despesas administrativas;Materiais de escritório;Administrativo;Pago;1548.6;Não
+302;2026-08-03;2026-08-03;Saída;Despesas administrativas;Materiais de escritório;Administrativo;Pago;1459.51;Não
+303;2026-08-04;2026-08-04;Saída;Fornecedores;Compra de embalagens;Produção;Pago;12188.46;Não
+304;2026-08-05;2026-08-05;Saída;Manutenção;Calibração de equipamentos;Produção;Pago;7197.99;Não
+305;2026-08-06;2026-08-06;Saída;Folha de pagamento;Pagamento de salários;RH;Pago;16728.08;Sim
+306;2026-08-07;2026-08-07;Entrada;Vendas;Recebimento Cliente Kappa;Comercial;Recebido;18456.62;Não
+307;2026-08-08;2026-08-08;Saída;Impostos;Pagamento de tributos;Fiscal;Pago;6001.03;Sim
+308;2026-08-09;2026-08-09;Entrada;Vendas;Recebimento Cliente Chi;Comercial;Recebido;20074.87;Não
+309;2026-08-10;2026-08-10;Saída;Logística;Frete de materiais;Logística;Pago;4307.13;Não
+310;2026-08-11;2026-08-11;Entrada;Serviços;Recebimento suporte técnico;Comercial;Recebido;9402.95;Sim
+311;2026-08-12;2026-08-12;Entrada;Vendas;Recebimento Cliente Beta;Comercial;Recebido;16943.57;Não
+312;2026-08-13;2026-08-13;Saída;Folha de pagamento;Adiantamento salarial;RH;Pago;8283.96;Sim
+313;2026-08-14;2026-08-14;Saída;Manutenção;Reparo corretivo;Produção;Pago;7209.78;Não
+314;2026-08-15;2026-08-15;Saída;Seguros;Seguro patrimonial;Administrativo;Pago;3174.62;Sim
+315;2026-08-16;2026-08-16;Saída;Seguros;Seguro patrimonial;Administrativo;Pago;2990.34;Sim
+316;2026-08-17;2026-08-17;Saída;Marketing;Campanha institucional;Comercial;Pago;3078.97;Não
+317;2026-08-18;2026-08-18;Saída;Manutenção;Reparo corretivo;Produção;Pago;6448.61;Não
+318;2026-08-19;2026-08-19;Entrada;Serviços;Recebimento manutenção contratada;Comercial;Recebido;10216.5;Sim
+319;2026-08-20;2026-08-20;Saída;Folha de pagamento;Adiantamento salarial;RH;Pago;10298.5;Sim
+320;2026-08-21;2026-08-21;Entrada;Vendas;Recebimento Cliente Beta;Comercial;Recebido;17449.95;Não
+321;2026-08-22;2026-08-22;Entrada;Vendas;Recebimento Cliente Ni;Comercial;Recebido;15795.04;Não
+322;2026-08-23;2026-08-23;Entrada;Serviços;Recebimento contrato mensal;Comercial;Recebido;10382.08;Não
+323;2026-08-24;2026-08-24;Entrada;Vendas;Recebimento Cliente Psi;Comercial;Recebido;16408.11;Não
+324;2026-08-25;2026-08-25;Saída;Tecnologia;Licenças de software;Administrativo;Pago;1915.51;Sim
+325;2026-08-26;2026-08-26;Entrada;Vendas;Recebimento Cliente Tau;Comercial;Recebido;19481.59;Não
+326;2026-08-27;2026-08-27;Saída;Logística;Frete de materiais;Logística;Pago;3999.0;Não
+327;2026-08-28;2026-08-28;Saída;Fornecedores;Compra de embalagens;Produção;Pago;11132.71;Não
+328;2026-08-29;2026-08-29;Saída;Folha de pagamento;Adiantamento salarial;RH;Pago;9434.86;Sim
+329;2026-08-30;2026-08-30;Entrada;Vendas;Recebimento Cliente Rho;Comercial;Recebido;19565.92;Não
+330;2026-08-31;2026-08-31;Entrada;Vendas;Recebimento Cliente Alfa;Comercial;Recebido;16240.93;Não
+331;2026-09-01;2026-09-01;Saída;Folha de pagamento;Pagamento de salários;RH;Pago;18500.0;Sim
+332;2026-09-02;2026-09-02;Entrada;Vendas;Recebimento Cliente Alfa;Comercial;Recebido;24500.0;Não
+333;2026-09-03;;Saída;Fornecedores;Compra de matéria-prima;Produção;Previsto;12800.0;Não
+334;2026-09-04;2026-09-04;Saída;Energia elétrica;Conta de energia;Produção;Pago;4200.0;Sim
+335;2026-09-05;;Entrada;Vendas;Recebimento Cliente Beta;Comercial;Previsto;18000.0;Não
+336;2026-09-06;;Saída;Impostos;Pagamento de tributos;Fiscal;Previsto;7600.0;Sim
+337;2026-09-07;2026-09-07;Entrada;Serviços;Recebimento contrato mensal;Comercial;Recebido;9500.0;Sim
+338;2026-09-08;;Saída;Manutenção;Manutenção preventiva de máquinas;Produção;Previsto;6800.0;Não
+339;2026-09-09;;Entrada;Vendas;Recebimento Cliente Gama;Comercial;Previsto;27500.0;Não
+340;2026-09-10;2026-09-10;Saída;Aluguel;Aluguel da unidade;Administrativo;Pago;5200.0;Sim
+341;2026-09-11;;Saída;Fornecedores;Compra de embalagens;Produção;Previsto;3900.0;Não
+342;2026-09-12;;Entrada;Vendas;Recebimento Cliente Delta;Comercial;Previsto;13200.0;Não
+343;2026-09-13;;Saída;Tecnologia;Licenças de software;Administrativo;Previsto;2100.0;Sim
+344;2026-09-14;2026-09-14;Entrada;Serviços;Recebimento projeto especial;Comercial;Recebido;16800.0;Não
+345;2026-09-15;;Saída;Folha de pagamento;Adiantamento salarial;RH;Previsto;9200.0;Sim
+346;2026-09-16;;Saída;Logística;Frete de materiais;Logística;Previsto;4700.0;Não
+347;2026-09-17;;Entrada;Vendas;Recebimento Cliente Épsilon;Comercial;Previsto;22100.0;Não
+348;2026-09-18;;Saída;Marketing;Campanha institucional;Comercial;Previsto;3500.0;Não
+349;2026-09-19;;Saída;Fornecedores;Compra emergencial de insumos;Produção;Previsto;15400.0;Não
+350;2026-09-20;;Entrada;Vendas;Recebimento Cliente Zeta;Comercial;Previsto;11900.0;Não
+351;2026-09-21;;Saída;Manutenção;Reparo corretivo;Produção;Previsto;8700.0;Não
+352;2026-09-22;;Entrada;Serviços;Recebimento suporte técnico;Comercial;Previsto;7400.0;Não
+353;2026-09-23;;Saída;Impostos;Recolhimento de impostos;Fiscal;Previsto;6100.0;Sim
+354;2026-09-24;;Saída;Seguros;Seguro patrimonial;Administrativo;Previsto;2800.0;Sim
+355;2026-09-25;;Entrada;Vendas;Recebimento Cliente Ômega;Comercial;Previsto;19800.0;Não
+356;2026-09-26;;Saída;Fornecedores;Compra de componentes;Produção;Previsto;11200.0;Não
+357;2026-09-27;;Entrada;Serviços;Recebimento manutenção contratada;Comercial;Previsto;8900.0;Não
+358;2026-09-28;;Saída;Energia elétrica;Consumo adicional de energia;Produção;Previsto;5100.0;Não
+359;2026-09-29;;Saída;Despesas administrativas;Materiais de escritório;Administrativo;Previsto;1650.0;Não
+360;2026-09-30;;Entrada;Vendas;Recebimento Cliente Sigma;Comercial;Previsto;14600.0;Não

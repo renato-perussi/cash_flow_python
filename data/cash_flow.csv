@@ -1,0 +1,31 @@
+﻿id_lancamento;data_prevista;data_realizada;tipo;categoria;descricao;centro_custo;status;valor;recorrente
+1;2026-09-01;2026-09-01;Saída;Folha de pagamento;Pagamento de salários;RH;Pago;18500.0;Sim
+2;2026-09-02;2026-09-02;Entrada;Vendas;Recebimento Cliente Alfa;Comercial;Recebido;24500.0;Não
+3;2026-09-03;;Saída;Fornecedores;Compra de matéria-prima;Produção;Previsto;12800.0;Não
+4;2026-09-04;2026-09-04;Saída;Energia elétrica;Conta de energia;Produção;Pago;4200.0;Sim
+5;2026-09-05;;Entrada;Vendas;Recebimento Cliente Beta;Comercial;Previsto;18000.0;Não
+6;2026-09-06;;Saída;Impostos;Pagamento de tributos;Fiscal;Previsto;7600.0;Sim
+7;2026-09-07;2026-09-07;Entrada;Serviços;Recebimento contrato mensal;Comercial;Recebido;9500.0;Sim
+8;2026-09-08;;Saída;Manutenção;Manutenção preventiva de máquinas;Produção;Previsto;6800.0;Não
+9;2026-09-09;;Entrada;Vendas;Recebimento Cliente Gama;Comercial;Previsto;27500.0;Não
+10;2026-09-10;2026-09-10;Saída;Aluguel;Aluguel da unidade;Administrativo;Pago;5200.0;Sim
+11;2026-09-11;;Saída;Fornecedores;Compra de embalagens;Produção;Previsto;3900.0;Não
+12;2026-09-12;;Entrada;Vendas;Recebimento Cliente Delta;Comercial;Previsto;13200.0;Não
+13;2026-09-13;;Saída;Tecnologia;Licenças de software;Administrativo;Previsto;2100.0;Sim
+14;2026-09-14;2026-09-14;Entrada;Serviços;Recebimento projeto especial;Comercial;Recebido;16800.0;Não
+15;2026-09-15;;Saída;Folha de pagamento;Adiantamento salarial;RH;Previsto;9200.0;Sim
+16;2026-09-16;;Saída;Logística;Frete de materiais;Logística;Previsto;4700.0;Não
+17;2026-09-17;;Entrada;Vendas;Recebimento Cliente Épsilon;Comercial;Previsto;22100.0;Não
+18;2026-09-18;;Saída;Marketing;Campanha institucional;Comercial;Previsto;3500.0;Não
+19;2026-09-19;;Saída;Fornecedores;Compra emergencial de insumos;Produção;Previsto;15400.0;Não
+20;2026-09-20;;Entrada;Vendas;Recebimento Cliente Zeta;Comercial;Previsto;11900.0;Não
+21;2026-09-21;;Saída;Manutenção;Reparo corretivo;Produção;Previsto;8700.0;Não
+22;2026-09-22;;Entrada;Serviços;Recebimento suporte técnico;Comercial;Previsto;7400.0;Não
+23;2026-09-23;;Saída;Impostos;Recolhimento de impostos;Fiscal;Previsto;6100.0;Sim
+24;2026-09-24;;Saída;Seguros;Seguro patrimonial;Administrativo;Previsto;2800.0;Sim
+25;2026-09-25;;Entrada;Vendas;Recebimento Cliente Ômega;Comercial;Previsto;19800.0;Não
+26;2026-09-26;;Saída;Fornecedores;Compra de componentes;Produção;Previsto;11200.0;Não
+27;2026-09-27;;Entrada;Serviços;Recebimento manutenção contratada;Comercial;Previsto;8900.0;Não
+28;2026-09-28;;Saída;Energia elétrica;Consumo adicional de energia;Produção;Previsto;5100.0;Não
+29;2026-09-29;;Saída;Despesas administrativas;Materiais de escritório;Administrativo;Previsto;1650.0;Não
+30;2026-09-30;;Entrada;Vendas;Recebimento Cliente Sigma;Comercial;Previsto;14600.0;Não

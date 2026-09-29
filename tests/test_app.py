@@ -122,6 +122,25 @@ def test_format_brl_bool_returns_dash():
     assert format_brl(False) == '—'
 
 
+def test_apply_style_includes_alert_contrast(monkeypatch):
+    import app as app_module
+
+    captured = []
+    monkeypatch.setattr(
+        app_module.st, 'markdown', lambda body, **kwargs: captured.append(body)
+    )
+    app_module.apply_style()
+    css = '\n'.join(captured)
+    for testid in (
+        'stAlertContentWarning',
+        'stAlertContentError',
+        'stAlertContentInfo',
+        'stAlertContentSuccess',
+    ):
+        assert testid in css, f'regra de contraste ausente para {testid}'
+    assert '#1d1d1f' in css, 'texto dos alertas deve usar a tinta ink'
+
+
 def test_get_frame_keyerror_shows_error(monkeypatch):
     import app as app_module
     from cashflow import data as data_module

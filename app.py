@@ -173,6 +173,39 @@ def apply_style():
             width: 100% !important;
             max-width: 100% !important;
         }
+        div[data-testid='stAlertContainer'] {
+            background-color: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+        }
+        div[data-testid='stAlertContentWarning'],
+        div[data-testid='stAlertContentError'],
+        div[data-testid='stAlertContentInfo'],
+        div[data-testid='stAlertContentSuccess'] {
+            border-radius: 12px !important;
+            border: 1px solid #e0e0e0 !important;
+            color: #1d1d1f !important;
+            padding: 16px !important;
+        }
+        div[data-testid='stAlertContentWarning'] {
+            background-color: #fff3cd !important;
+            border-color: #e3c878 !important;
+        }
+        div[data-testid='stAlertContentError'] {
+            background-color: #fdecea !important;
+            border-color: #efb3ac !important;
+        }
+        div[data-testid='stAlertContentInfo'] {
+            background-color: #e8f1fd !important;
+            border-color: #a9c8ef !important;
+        }
+        div[data-testid='stAlertContentSuccess'] {
+            background-color: #e6f4ea !important;
+            border-color: #a3d4b3 !important;
+        }
+        div[data-testid='stAlert'] p {
+            color: #1d1d1f !important;
+        }
         .stSelectbox label p, .stMultiSelect label p {
             color: #1d1d1f !important;
             font-size: 14px !important;

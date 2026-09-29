@@ -1,23 +1,46 @@
+import html
+import math
+from pathlib import Path
+
 import pandas as pd
 import streamlit as st
 
 from cashflow import charts, data, metrics
 
+DATA_PATH = Path(__file__).parent / 'data' / 'cash_flow.csv'
+
+# 360d cobre a janela completa do dataset atual (360 linhas/dias);
+# não assumir tamanho fixo — a âncora abaixo deriva de max(data_prevista).
 PERIOD_DAYS = {'7d': 7, '14d': 14, '30d': 30, '60d': 60, '90d': 90, '360d': 360}
 
 
 def format_brl(value):
-    return f'R$ {value:,.2f}'.replace(',', 'X').replace('.', ',').replace('X', '.')
+    if value is None:
+        return '—'
+    try:
+        if pd.isna(value):
+            return '—'
+        num = float(value)
+    except (TypeError, ValueError):
+        return '—'
+    if not math.isfinite(num):
+        return '—'
+    return f'R$ {num:,.2f}'.replace(',', 'X').replace('.', ',').replace('X', '.')
 
 
 def card_html(label, value, hint):
     return (
         '<div class=\'cash-card\'>'
-        f'<div class=\'cash-label\'>{label}</div>'
-        f'<div class=\'cash-value\'>{value}</div>'
-        f'<div class=\'cash-hint\'>{hint}</div>'
+        f'<div class=\'cash-label\'>{html.escape(str(label))}</div>'
+        f'<div class=\'cash-value\'>{html.escape(str(value))}</div>'
+        f'<div class=\'cash-hint\'>{html.escape(str(hint))}</div>'
         '</div>'
     )
+
+
+@st.cache_data  # sem ttl: dataset estático em disco; se o CSV mudar use get_frame.clear()
+def get_frame():
+    return data.with_signed_value(data.load_cashflow(DATA_PATH))
 
 
 def apply_style():
@@ -102,7 +125,6 @@ def apply_style():
             border-radius: 18px;
             padding: 24px;
             min-width: 0;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
         }
         .cash-label {
             font-size: 14px; font-weight: 600; color: #1d1d1f;
@@ -127,7 +149,6 @@ def apply_style():
             max-width: 100%;
             overflow: hidden;
             box-sizing: border-box;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
         }
         div[data-testid='stPlotlyChart'] > div {
             width: 100% !important;
@@ -251,10 +272,6 @@ def apply_style():
             box-sizing: border-box;
             transition: background-color 0.2s ease, color 0.2s ease;
         }
-        .stButton > button:hover {
-            background-color: #0052a3 !important; color: #ffffff !important;
-            border-color: #0052a3 !important;
-        }
         .stButton > button:active { transform: scale(0.95); }
         .stButton > button:focus { outline: 2px solid #0071e3; outline-offset: 2px; }
         .stDownloadButton > button {
@@ -265,10 +282,6 @@ def apply_style():
             display: inline-flex; align-items: center; justify-content: center;
             box-sizing: border-box;
             transition: background-color 0.2s ease, color 0.2s ease;
-        }
-        .stDownloadButton > button:hover {
-            background-color: rgba(0, 102, 204, 0.08) !important; color: #0066cc !important;
-            border-color: #0066cc !important;
         }
         .stDownloadButton > button:active { transform: scale(0.95); }
         .stDownloadButton > button:focus { outline: 2px solid #0071e3; outline-offset: 2px; }
@@ -290,11 +303,11 @@ def apply_style():
 
 
 def build_filter_options(frame):
-    types = sorted(frame['tipo'].unique())
-    categories = sorted(frame['categoria'].unique())
-    centers = sorted(frame['centro_custo'].unique())
-    statuses = sorted(frame['status'].unique())
-    recurring_opts = sorted(frame['recorrente'].unique())
+    types = sorted(frame['tipo'].dropna().unique().tolist())
+    categories = sorted(frame['categoria'].dropna().unique().tolist())
+    centers = sorted(frame['centro_custo'].dropna().unique().tolist())
+    statuses = sorted(frame['status'].dropna().unique().tolist())
+    recurring_opts = sorted(frame['recorrente'].dropna().unique().tolist())
     return types, categories, centers, statuses, recurring_opts
 
 
@@ -339,15 +352,14 @@ def reset_filters():
 def render_action_row(filtered):
     row = st.columns([1, 1, 10], gap='small')
     with row[0]:
-        reset = st.button('Limpar', on_click=reset_filters)
+        st.button('Limpar', on_click=reset_filters)
     with row[1]:
         st.download_button(
             'Exportar',
-            filtered.to_csv(index=False, sep=';'),
+            filtered.to_csv(index=False, sep=';', encoding='utf-8-sig').encode('utf-8-sig'),
             file_name='cash_flow_filtered.csv',
-            mime='text/csv',
+            mime='text/csv; charset=utf-8',
         )
-    return reset
 
 
 def render_cards(summary):
@@ -355,7 +367,10 @@ def render_cards(summary):
     outflow_text = format_brl(summary['total_outflows'])
     net_text = format_brl(summary['net_balance'])
     coverage = summary['forecast_coverage']
-    coverage_text = f'{coverage:.2f}x'
+    if coverage is None or (isinstance(coverage, float) and not math.isfinite(coverage)):
+        coverage_text = '—'
+    else:
+        coverage_text = f'{coverage:.2f}x'
     cols = st.columns(4, gap='medium')
     with cols[0]:
         st.markdown(card_html('Saldo Líquido', net_text, 'Entradas menos saídas'), unsafe_allow_html=True)
@@ -393,7 +408,7 @@ def main():
         '<div class=\'cash-sub\'>Acompanhe liquidez, receitas, custos e risco de previsão.</div>',
         unsafe_allow_html=True,
     )
-    frame = data.with_signed_value(data.load_cashflow('data/cash_flow.csv'))
+    frame = get_frame()
     types, categories, centers, statuses, recurring_opts = build_filter_options(frame)
     period, type_sel, category_sel, center_sel, status_sel, recurring_sel = render_filter_fields(
         types, categories, centers, statuses, recurring_opts

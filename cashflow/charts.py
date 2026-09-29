@@ -1,4 +1,7 @@
+import numpy as np
 import plotly.express as px
+
+from cashflow.data import group_daily_net
 
 
 def base_layout(fig):
@@ -53,8 +56,7 @@ def base_layout(fig):
 
 
 def daily_net_flow(frame):
-    grouped = frame.groupby('data_prevista', as_index=False).agg(net=('signed_value', 'sum'))
-    grouped = grouped.sort_values('data_prevista')
+    grouped = group_daily_net(frame)
     fig = px.bar(
         grouped,
         x='data_prevista',
@@ -69,8 +71,7 @@ def daily_net_flow(frame):
 
 
 def cumulative_balance(frame):
-    grouped = frame.groupby('data_prevista', as_index=False).agg(net=('signed_value', 'sum'))
-    grouped = grouped.sort_values('data_prevista')
+    grouped = group_daily_net(frame)
     grouped['balance'] = grouped['net'].cumsum()
     fig = px.area(
         grouped,
@@ -123,7 +124,14 @@ def outflows_by_cost_center(frame):
 
 def realized_vs_forecast(frame):
     work = frame.copy()
-    work['bucket'] = work['status'].apply(lambda value: 'Realizado' if value in ['Pago', 'Recebido'] else 'Previsto')
+    status = work['status']
+    is_realized = status.isin(['Pago', 'Recebido'])
+    is_forecast = status == 'Previsto'
+    work['bucket'] = np.select(
+        [is_realized, is_forecast],
+        ['Realizado', 'Previsto'],
+        default='Desconhecido',
+    )
     grouped = work.groupby(['bucket', 'tipo'], as_index=False).agg(total=('valor', 'sum'))
     fig = px.bar(
         grouped,

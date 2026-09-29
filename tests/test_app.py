@@ -62,3 +62,88 @@ def test_period_days_full_window():
     from app import PERIOD_DAYS
 
     assert PERIOD_DAYS['360d'] == 360
+
+
+def test_get_frame_failure_shows_error(monkeypatch):
+    import app as app_module
+    from cashflow import data as data_module
+
+    def _boom(_path):
+        raise FileNotFoundError('sumiu')
+
+    monkeypatch.setattr(data_module, 'load_cashflow', _boom)
+    errors = []
+    stopped = []
+    monkeypatch.setattr(
+        app_module.st, 'error', lambda msg: errors.append(msg)
+    )
+
+    def _stop():
+        stopped.append(True)
+        raise RuntimeError('stopped')
+
+    monkeypatch.setattr(app_module.st, 'stop', _stop)
+    try:
+        app_module.get_frame.__wrapped__()
+    except RuntimeError:
+        pass
+    assert errors, 'st.error deve ser chamado na falha de load'
+    assert stopped, 'st.stop deve ser chamado na falha de load'
+
+
+def test_get_frame_invalid_data_shows_error(monkeypatch):
+    import app as app_module
+    from cashflow import data as data_module
+
+    def _boom(_path):
+        raise ValueError('csv inválido')
+
+    monkeypatch.setattr(data_module, 'load_cashflow', _boom)
+    errors = []
+    monkeypatch.setattr(
+        app_module.st, 'error', lambda msg: errors.append(msg)
+    )
+
+    def _stop():
+        raise RuntimeError('stopped')
+
+    monkeypatch.setattr(app_module.st, 'stop', _stop)
+    try:
+        app_module.get_frame.__wrapped__()
+    except RuntimeError:
+        pass
+    assert errors, 'st.error deve ser chamado em ValueError'
+
+
+def test_format_brl_bool_returns_dash():
+    from app import format_brl
+
+    assert format_brl(True) == '—'
+    assert format_brl(False) == '—'
+
+
+def test_get_frame_keyerror_shows_error(monkeypatch):
+    import app as app_module
+    from cashflow import data as data_module
+
+    def _boom(_frame):
+        raise KeyError("coluna 'tipo' ausente")
+
+    monkeypatch.setattr(data_module, 'with_signed_value', _boom)
+    errors = []
+    stopped = []
+    monkeypatch.setattr(
+        app_module.st, 'error', lambda msg: errors.append(msg)
+    )
+
+    def _stop():
+        stopped.append(True)
+        raise RuntimeError('stopped')
+
+    monkeypatch.setattr(app_module.st, 'stop', _stop)
+    try:
+        app_module.get_frame.__wrapped__()
+    except RuntimeError:
+        pass
+    assert errors, 'st.error deve ser chamado em KeyError'
+    assert stopped, 'st.stop deve ser chamado em KeyError'

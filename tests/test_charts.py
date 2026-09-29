@@ -104,3 +104,74 @@ def test_realized_vs_forecast_valid_buckets_unchanged():
     for trace in fig.data:
         labels.update(list(trace.x))
     assert labels <= {'Realizado', 'Previsto'}
+
+
+def test_valor_charts_reject_negative_valor():
+    from cashflow import charts as charts_module
+    from cashflow import data as data_module
+
+    base = data_module.with_signed_value(
+        data_module.load_cashflow('data/cash_flow.csv')
+    ).head(5).copy()
+    base.loc[base.index[0], 'valor'] = -999.0
+    with pytest.raises(ValueError, match='não-positivos'):
+        charts_module.inflows_by_category(base)
+    with pytest.raises(ValueError, match='não-positivos'):
+        charts_module.outflows_by_cost_center(base)
+    with pytest.raises(ValueError, match='não-positivos'):
+        charts_module.realized_vs_forecast(base)
+    with pytest.raises(ValueError, match='não-positivos'):
+        charts_module.recurring_split(base)
+
+
+def test_valor_charts_reject_inf_valor():
+    from cashflow import charts as charts_module
+    from cashflow import data as data_module
+
+    base = data_module.with_signed_value(
+        data_module.load_cashflow('data/cash_flow.csv')
+    ).head(5).copy()
+    base.loc[base.index[0], 'valor'] = float('inf')
+    with pytest.raises(ValueError, match='inf'):
+        charts_module.inflows_by_category(base)
+    with pytest.raises(ValueError, match='inf'):
+        charts_module.outflows_by_cost_center(base)
+    with pytest.raises(ValueError, match='inf'):
+        charts_module.realized_vs_forecast(base)
+    with pytest.raises(ValueError, match='inf'):
+        charts_module.recurring_split(base)
+
+
+def test_valor_charts_empty_frame_ok():
+    import pandas as pd
+
+    from cashflow import charts as charts_module
+    from cashflow import data as data_module
+
+    frame = data_module.with_signed_value(
+        data_module.load_cashflow('data/cash_flow.csv')
+    ).head(0).copy()
+    assert charts_module.inflows_by_category(frame) is not None
+    assert charts_module.outflows_by_cost_center(frame) is not None
+    assert charts_module.realized_vs_forecast(frame) is not None
+    assert charts_module.recurring_split(frame) is not None
+    assert pd.isna(frame['valor']).sum() == 0
+
+
+def test_valor_charts_missing_valor_raises_friendly():
+    from cashflow import charts as charts_module
+    from cashflow import data as data_module
+
+    base = data_module.with_signed_value(
+        data_module.load_cashflow('data/cash_flow.csv')
+    ).head(5).copy()
+    no_valor = base.drop(columns=['valor'])
+    assert 'valor' not in no_valor.columns
+    with pytest.raises(ValueError, match='colunas ausentes'):
+        charts_module.inflows_by_category(no_valor)
+    with pytest.raises(ValueError, match='colunas ausentes'):
+        charts_module.outflows_by_cost_center(no_valor)
+    with pytest.raises(ValueError, match='colunas ausentes'):
+        charts_module.realized_vs_forecast(no_valor)
+    with pytest.raises(ValueError, match='colunas ausentes'):
+        charts_module.recurring_split(no_valor)

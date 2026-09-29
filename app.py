@@ -15,6 +15,8 @@ PERIOD_DAYS = {'7d': 7, '14d': 14, '30d': 30, '60d': 60, '90d': 90, '360d': 360}
 
 
 def format_brl(value):
+    if isinstance(value, bool):
+        return '—'
     if value is None:
         return '—'
     try:
@@ -40,7 +42,15 @@ def card_html(label, value, hint):
 
 @st.cache_data  # sem ttl: dataset estático em disco; se o CSV mudar use get_frame.clear()
 def get_frame():
-    return data.with_signed_value(data.load_cashflow(DATA_PATH))
+    """Carrega frame canônico com signed_value; falha amigável na UI."""
+    try:
+        return data.with_signed_value(data.load_cashflow(DATA_PATH))
+    except FileNotFoundError as exc:
+        st.error(f'arquivo de dados não encontrado: {DATA_PATH} ({exc})')
+        st.stop()
+    except (ValueError, KeyError) as exc:
+        st.error(f'falha ao carregar dados: {exc}')
+        st.stop()
 
 
 def apply_style():
@@ -409,6 +419,15 @@ def main():
         unsafe_allow_html=True,
     )
     frame = get_frame()
+    if frame is None:
+        st.stop()
+    if 'data_prevista' in frame.columns:
+        n_nat = int(frame['data_prevista'].isna().sum())
+        if n_nat:
+            st.warning(
+                f'{n_nat} linha(s) com data_prevista inválida '
+                'foram excluídas das métricas.'
+            )
     types, categories, centers, statuses, recurring_opts = build_filter_options(frame)
     period, type_sel, category_sel, center_sel, status_sel, recurring_sel = render_filter_fields(
         types, categories, centers, statuses, recurring_opts
@@ -416,22 +435,30 @@ def main():
     days = PERIOD_DAYS.get(period, 30)
     end = frame['data_prevista'].max()
     start = end - pd.Timedelta(days=days - 1)
-    filtered = data.filter_cashflow(
-        frame,
-        tipos=type_sel,
-        categorias=category_sel,
-        cost_centers=center_sel,
-        statuses=status_sel,
-        recurring=recurring_sel,
-        start=start,
-        end=end,
-    )
+    try:
+        filtered = data.filter_cashflow(
+            frame,
+            tipos=type_sel,
+            categorias=category_sel,
+            cost_centers=center_sel,
+            statuses=status_sel,
+            recurring=recurring_sel,
+            start=start,
+            end=end,
+        )
+    except ValueError as exc:
+        st.error(f'falha ao filtrar dados: {exc}')
+        st.stop()
     render_action_row(filtered)
     if filtered.empty:
         st.warning('Sem dados para os filtros selecionados')
         st.stop()
     st.divider()
-    summary = metrics.build_summary(filtered)
+    try:
+        summary = metrics.build_summary(filtered)
+    except (ValueError, KeyError) as exc:
+        st.error(f'falha ao calcular métricas: {exc}')
+        st.stop()
     render_cards(summary)
     render_charts(filtered)
 

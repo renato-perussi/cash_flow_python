@@ -1,7 +1,9 @@
+"""Gráficos Plotly do cash-flow (sep=";" e pt-BR preservados no dado)."""
+
 import numpy as np
 import plotly.express as px
 
-from cashflow.data import group_daily_net
+from cashflow.data import group_daily_net, require_columns, validate_valor
 
 
 def base_layout(fig):
@@ -56,6 +58,10 @@ def base_layout(fig):
 
 
 def daily_net_flow(frame):
+    """Fluxo líquido diário (pré-condição: chame with_signed_value antes).
+
+    Empty-safe: frame vazio retorna figura vazia, sem exceção.
+    """
     grouped = group_daily_net(frame)
     fig = px.bar(
         grouped,
@@ -71,6 +77,10 @@ def daily_net_flow(frame):
 
 
 def cumulative_balance(frame):
+    """Saldo acumulado (pré-condição: chame with_signed_value antes).
+
+    Empty-safe: frame vazio retorna figura vazia, sem exceção.
+    """
     grouped = group_daily_net(frame)
     grouped['balance'] = grouped['net'].cumsum()
     fig = px.area(
@@ -87,6 +97,18 @@ def cumulative_balance(frame):
 
 
 def inflows_by_category(frame):
+    """Entradas por categoria (usa ``valor``; empty-safe).
+
+    Pré-condição: ``valor`` finito > 0 (mesma regra de
+    with_signed_value/validate_valor, com hint); -999/inf/NaN/0
+    levantam ValueError, evitando divergência com métricas.
+    Coluna ``valor`` ausente levanta ValueError (LOW-05).
+    """
+    require_columns(frame, ['valor'], 'em inflows_by_category')
+    try:
+        validate_valor(frame)
+    except ValueError as exc:
+        raise ValueError(f'{exc} (chame with_signed_value antes)') from exc
     inflows = frame[frame['tipo'] == 'Entrada']
     grouped = inflows.groupby('categoria', as_index=False).agg(total=('valor', 'sum'))
     grouped = grouped.sort_values('total')
@@ -105,6 +127,18 @@ def inflows_by_category(frame):
 
 
 def outflows_by_cost_center(frame):
+    """Saídas por centro de custo (usa ``valor``; empty-safe).
+
+    Pré-condição: ``valor`` finito > 0 (mesma regra de
+    with_signed_value/validate_valor, com hint); -999/inf/NaN/0
+    levantam ValueError, evitando divergência com métricas.
+    Coluna ``valor`` ausente levanta ValueError (LOW-05).
+    """
+    require_columns(frame, ['valor'], 'em outflows_by_cost_center')
+    try:
+        validate_valor(frame)
+    except ValueError as exc:
+        raise ValueError(f'{exc} (chame with_signed_value antes)') from exc
     outflows = frame[frame['tipo'] == 'Saída']
     grouped = outflows.groupby('centro_custo', as_index=False).agg(total=('valor', 'sum'))
     grouped = grouped.sort_values('total')
@@ -123,6 +157,18 @@ def outflows_by_cost_center(frame):
 
 
 def realized_vs_forecast(frame):
+    """Realizado (Pago/Recebido) vs Previsto; desconhecido em bucket próprio.
+
+    Usa ``valor``; empty-safe. Pré-condição: ``valor`` finito > 0
+    (mesma regra de with_signed_value/validate_valor, com hint);
+    -999/inf/NaN/0 levantam ValueError, evitando divergência
+    com métricas. Coluna ``valor`` ausente levanta ValueError (LOW-05).
+    """
+    require_columns(frame, ['valor'], 'em realized_vs_forecast')
+    try:
+        validate_valor(frame)
+    except ValueError as exc:
+        raise ValueError(f'{exc} (chame with_signed_value antes)') from exc
     work = frame.copy()
     status = work['status']
     is_realized = status.isin(['Pago', 'Recebido'])
@@ -149,6 +195,18 @@ def realized_vs_forecast(frame):
 
 
 def recurring_split(frame):
+    """Recorrente vs pontual por tipo (usa ``valor``; empty-safe).
+
+    Pré-condição: ``valor`` finito > 0 (mesma regra de
+    with_signed_value/validate_valor, com hint); -999/inf/NaN/0
+    levantam ValueError, evitando divergência com métricas.
+    Coluna ``valor`` ausente levanta ValueError (LOW-05).
+    """
+    require_columns(frame, ['valor'], 'em recurring_split')
+    try:
+        validate_valor(frame)
+    except ValueError as exc:
+        raise ValueError(f'{exc} (chame with_signed_value antes)') from exc
     grouped = frame.groupby(['recorrente', 'tipo'], as_index=False).agg(total=('valor', 'sum'))
     fig = px.bar(
         grouped,

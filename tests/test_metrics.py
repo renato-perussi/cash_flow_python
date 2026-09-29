@@ -167,3 +167,90 @@ def test_build_summary_rejects_nan_valor_direct():
     )
     with pytest.raises(ValueError, match='n_nulos'):
         metrics_module.build_summary(frame)
+
+
+def test_build_summary_missing_columns_raises_friendly():
+    from cashflow import metrics as metrics_module
+
+    frame = pd.DataFrame({'tipo': ['Entrada']})
+    with pytest.raises(ValueError, match='colunas ausentes'):
+        metrics_module.build_summary(frame)
+
+
+def test_build_summary_rejects_inf_valor():
+    from cashflow import metrics as metrics_module
+
+    frame = pd.DataFrame(
+        {
+            'tipo': ['Entrada', 'Saída'],
+            'status': ['Pago', 'Pago'],
+            'recorrente': ['Não', 'Não'],
+            'valor': [100.0, float('inf')],
+        }
+    )
+    with pytest.raises(ValueError, match='inf'):
+        metrics_module.build_summary(frame)
+
+
+def test_build_summary_rejects_non_positive_valor():
+    from cashflow import metrics as metrics_module
+
+    for bad in (0.0, -10.0):
+        frame = pd.DataFrame(
+            {
+                'tipo': ['Entrada', 'Saída'],
+                'status': ['Pago', 'Pago'],
+                'recorrente': ['Não', 'Não'],
+                'valor': [100.0, bad],
+            }
+        )
+        with pytest.raises(ValueError, match='n_negativos'):
+            metrics_module.build_summary(frame)
+
+
+def test_build_summary_without_signed_matches_net():
+    from cashflow import data as data_module
+    from cashflow import metrics as metrics_module
+
+    signed = data_module.with_signed_value(
+        data_module.load_cashflow('data/cash_flow.csv')
+    )
+    plain = signed.drop(columns=['signed_value'])
+    assert 'signed_value' not in plain.columns
+    summary_signed = metrics_module.build_summary(signed)
+    summary_plain = metrics_module.build_summary(plain)
+    assert summary_plain['net_balance'] == pytest.approx(
+        summary_signed['net_balance']
+    )
+    for key in summary_signed:
+        assert summary_plain[key] == pytest.approx(summary_signed[key])
+
+
+def test_build_summary_rejects_invalid_tipo():
+    from cashflow import metrics as metrics_module
+
+    frame = pd.DataFrame(
+        {
+            'tipo': ['Foo'],
+            'status': ['Pago'],
+            'recorrente': ['Não'],
+            'valor': [100.0],
+        }
+    )
+    with pytest.raises(ValueError, match='n_invalidos=1'):
+        metrics_module.build_summary(frame)
+
+
+def test_build_summary_rejects_nan_tipo():
+    from cashflow import metrics as metrics_module
+
+    frame = pd.DataFrame(
+        {
+            'tipo': [None],
+            'status': ['Pago'],
+            'recorrente': ['Não'],
+            'valor': [100.0],
+        }
+    )
+    with pytest.raises(ValueError, match='n_nulos=1'):
+        metrics_module.build_summary(frame)

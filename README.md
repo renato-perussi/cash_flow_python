@@ -4,6 +4,16 @@ Aplicação web para acompanhamento da liquidez, das receitas, dos custos e do r
 
 Este documento atende a dois públicos: a Gestão, que encontra nas primeiras seções a descrição funcional do produto, e a equipe técnica, que encontra nas seções seguintes o contrato de dados, a arquitetura e os comandos de operação.
 
+## Índice
+
+- [1. Visão para a Gestão](#1-visão-para-a-gestão)
+- [2. Como usar](#2-como-usar)
+- [3. Instalação e execução](#3-instalação-e-execução)
+- [4. Arquitetura técnica](#4-arquitetura-técnica)
+- [5. Contrato de dados](#5-contrato-de-dados)
+- [6. Métricas — definição formal](#6-métricas--definição-formal)
+- [7. Desenvolvimento](#7-desenvolvimento)
+
 ## 1. Visão para a Gestão
 
 ### O que o painel responde
@@ -41,7 +51,41 @@ Períodos de 7, 14, 30, 60, 90 ou 360 dias, ancorados na data prevista mais rece
 - Linhas com data prevista inválida são excluídas das métricas, com aviso exibido na interface, de modo que os totais dos cartões permanecem consistentes com os gráficos diários.
 - Quando não há valores previstos a pagar, a cobertura prevista é apresentada como indisponível; quando não há previsão em nenhum sentido, é apresentada como 0,00x.
 
-## 2. Arquitetura técnica
+## 2. Como usar
+
+Fluxo típico de utilização, do geral ao detalhe:
+
+1. Abrir o painel e selecionar o período de análise (7 a 360 dias). A janela é ancorada na data prevista mais recente do conjunto de dados.
+2. Refinar com os filtros de tipo, categoria, centro de custo, status e recorrência. O botão Limpar restaura todos os filtros de uma só vez.
+3. Ler os quatro cartões de síntese no topo: saldo líquido, total de entradas, total de saídas e cobertura prevista.
+4. Analisar os gráficos para localizar tendências diárias, concentração de receitas e custos, e a composição entre realizado e previsto.
+5. Exportar o recorte filtrado em CSV, no mesmo formato do arquivo original, para análise complementar em planilha.
+
+![Visão geral do painel com filtros, cartões de síntese e início dos gráficos](docs/screenshots/visao_geral.png)
+
+Os gráficos de entradas por categoria e saídas por centro de custo evidenciam onde a receita se concentra e onde a despesa pressiona o caixa.
+
+![Gráficos de entradas por categoria e saídas por centro de custo](docs/screenshots/graficos.png)
+
+Quando a combinação de filtros não retorna lançamentos, o painel exibe uma mensagem informativa em lugar dos cartões e gráficos, sem erro. Basta ampliar o período ou reativar valores nos filtros para retomar a análise.
+
+![Mensagem exibida quando os filtros não retornam lançamentos](docs/screenshots/estado_vazio.png)
+
+## 3. Instalação e execução
+
+Pré-requisitos: Python 3.12. Executar sempre a partir da raiz do repositório, pois o caminho dos dados é relativo (`data/cash_flow.csv`).
+
+```bash
+.venv/bin/pip install -r requirements.txt -r requirements_dev.txt
+.venv/bin/python -m pytest -q
+.venv/bin/python -m streamlit run app.py
+```
+
+Observação: invocar `pytest` diretamente pelo binário omite o diretório corrente do caminho de importação; utilizar `python -m pytest` corrige a resolução dos módulos.
+
+Dependências principais: `streamlit==1.64.0`, `pandas==3.0.6`, `plotly==7.1.0`, `numpy==2.5.3`, `openpyxl==3.1.5`. Dependências de desenvolvimento: `pytest`, `pytest-cov`, `ruff`, `black` (versões em `requirements_dev.txt`).
+
+## 4. Arquitetura técnica
 
 ```
 app.py                  Ponto de entrada Streamlit: carregamento, filtros, cartões e composição dos gráficos.
@@ -50,6 +94,7 @@ cashflow/metrics.py     Agregações de negócio (build_summary, daily_flow).
 cashflow/charts.py      Gráficos Plotly (fluxo diário, saldo acumulado, categorias, centros de custo, realizado vs. previsto, recorrência).
 data/cash_flow.csv      Conjunto de dados canônico: 360 lançamentos, de 2025-10-06 a 2026-09-30.
 tests/                  Testes por módulo (test_data, test_metrics, test_charts, test_app).
+docs/screenshots/       Capturas de tela utilizadas neste documento.
 ```
 
 Ordem obrigatória do pipeline: `load_cashflow` seguido de `with_signed_value` antes de qualquer agregação diária, cálculo de fluxo ou gráfico que dependa de `signed_value`. As funções `group_daily_net`, `daily_net_flow`, `cumulative_balance` e `metrics.daily_flow` exigem a coluna `signed_value` e sinalizam sua ausência com `KeyError`. O resumo `build_summary` opera sobre a coluna `valor` (entradas menos saídas) e não exige `signed_value`, embora exija `valor` válido.
@@ -58,7 +103,7 @@ Tratamento de erros: `ValueError` representa falha apresentável ao usuário (a 
 
 A função `get_frame` é decorada com `st.cache_data` sem expiração, pois o conjunto de dados é estático em disco. Após qualquer alteração no CSV, invocar `get_frame.clear()`.
 
-## 3. Contrato de dados
+## 5. Contrato de dados
 
 Arquivo `data/cash_flow.csv`, com separador `;` e codificação `utf-8-sig` (com ou sem BOM):
 
@@ -78,7 +123,7 @@ Regras:
 - A janela temporal filtra exclusivamente `data_prevista`, nunca `data_realizada`. A âncora do período é `max(data_prevista) - dias + 1`. Filtro `None` desativa a dimensão; lista vazia retorna conjunto vazio; intervalo com início posterior ao fim retorna vazio por definição, sem exceção.
 - Exportação mantém `sep=";"` e codificação `utf-8-sig` para permitir reimportação sem perda.
 
-## 4. Métricas — definição formal
+## 6. Métricas — definição formal
 
 `build_summary` retorna:
 
@@ -91,17 +136,9 @@ Regras:
 
 `daily_flow` e `group_daily_net` agregam `signed_value` por `data_prevista`, ordenados cronologicamente; `daily_flow` acrescenta a coluna `cumulative` com a soma acumulada. Todos os gráficos são seguros para conjuntos vazios: um filtro sem resultados produz figuras vazias, sem exceção.
 
-## 5. Instalação e execução
+## 7. Desenvolvimento
 
-Pré-requisitos: Python 3.12. Executar sempre a partir da raiz do repositório, pois o caminho dos dados é relativo (`data/cash_flow.csv`).
-
-```bash
-.venv/bin/pip install -r requirements.txt -r requirements_dev.txt
-.venv/bin/python -m pytest -q
-.venv/bin/python -m streamlit run app.py
-```
-
-Comandos de apoio:
+Comandos de apoio, executados a partir da raiz do repositório:
 
 ```bash
 .venv/bin/python -m pytest tests/test_data.py -q   # um único módulo de teste; acrescentar -k nome para um caso específico
@@ -109,12 +146,9 @@ Comandos de apoio:
 .venv/bin/black --check .                          # conferência de formatação (o repositório não está integralmente formatado; evitar reformatação em massa)
 ```
 
-Observação: invocar `pytest` diretamente pelo binário omite o diretório corrente do caminho de importação; utilizar `python -m pytest` corrige a resolução dos módulos.
+Convenções:
 
-Dependências principais: `streamlit==1.64.0`, `pandas==3.0.6`, `plotly==7.1.0`, `numpy==2.5.3`, `openpyxl==3.1.5`. Dependências de desenvolvimento: `pytest`, `pytest-cov`, `ruff`, `black` (versões em `requirements_dev.txt`).
-
-## 6. Estrutura de apoio
-
-- `DESIGN.md` é a referência de identidade visual: acento único `#0066cc` (`#2997ff` em superfícies escuras), corpo de 17px, botões em pílula e uma única sombra reservada ao produto. Alterações de interface devem seguir esse documento.
+- `DESIGN.md` é a referência de identidade visual: acento único `#0066cc` (`#2997ff` em superfícies escuras), corpo de 17px, botões em pílula e uma única sombra reservada ao produto. Alterações de interface devem seguir esse documento e regenerar as capturas em `docs/screenshots/` quando a aparência mudar.
 - Diretório `outputs/` (ignorado pelo controle de versão) destina-se a relatórios e exportações gerados; não deve ser versionado, assim como `.venv/`.
-- Novos arquivos de código devem permanecer na raiz ou no pacote `cashflow/`, mantendo a estrutura atual sem subdivisões adicionais.
+- Novos arquivos de código devem permanecer na raiz ou no pacote `cashflow/`, mantendo a estrutura atual sem subdivisões adicionais. O diretório `docs/` é exceção restrita a documentação e imagens deste documento.
+- Manter este documento em sincronia ao alterar funcionalidades, contrato de dados, métricas ou comandos: documentação divergente do comportamento real deve ser corrigida no mesmo esforço da mudança.

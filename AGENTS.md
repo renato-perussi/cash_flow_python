@@ -40,4 +40,4 @@ Streamlit cash-flow app: `app.py` entrypoint + `cashflow/` package (`data.py`, `
 
 - `README.md` is the user/management-facing doc (pt-BR, formal tone, no decorative icons) — keep it in sync when changing features, data contract, metrics, or commands. Agent-oriented detail lives here; user-oriented detail lives there.
 - `outputs/` is gitignored — generated reports/exports go there, never commit. Never commit `.venv/`.
-- Keep code flat: repo root or `cashflow/` only; no monorepo layout.
+- Keep code flat: repo root or `cashflow/` only; no monorepo layout. Exception: `docs/screenshots/` holds README images (regenerate when UI changes).
